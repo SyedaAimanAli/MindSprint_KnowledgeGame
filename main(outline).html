@@ -7,28 +7,17 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@500;600;700;800&display=swap');
 
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-card: #141414;
-            --bg-card-light: #1a1a1a;
-            --primary: #ff6b35;
-            --primary-light: #f7931e;
-            --success: #4ade80;
-            --error: #f87171;
-            --warning: #fbbf24;
-            --text-primary: #f0f0f0;
-            --text-secondary: #e0e0e0;
-            --text-muted: #888;
-            --border: rgba(255, 255, 255, 0.08);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Space Mono', monospace;
-            background: var(--bg-primary);
+            background: #0a0a0a;
             min-height: 100vh;
-            color: var(--text-secondary);
+            color: #e0e0e0;
             overflow-x: hidden;
         }
 
@@ -46,8 +35,9 @@
             z-index: 0;
         }
 
-        .container {
+        .game-container {
             max-width: 600px;
+            width: 100%;
             margin: 0 auto;
             padding: 20px;
             position: relative;
@@ -58,213 +48,94 @@
             justify-content: center;
         }
 
-        /* Header */
         .header {
             text-align: center;
-            margin-bottom: 24px;
-            animation: fadeInDown 0.6s ease-out;
+            margin-bottom: 32px;
+            animation: fadeInDown 0.8s ease-out;
         }
 
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .logo {
             font-family: 'Syne', sans-serif;
             font-size: 42px;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light), var(--primary));
-            background-size: 200%;
-            background-clip: text;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff6b35 100%);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradient 3s ease infinite;
+            background-clip: text;
+            margin-bottom: 8px;
             letter-spacing: -2px;
+            animation: gradientShift 3s ease infinite;
         }
 
-        @keyframes gradient {
+        @keyframes gradientShift {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
 
         .tagline {
             font-size: 13px;
-            color: var(--text-muted);
+            color: #888;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-top: 8px;
         }
 
-        /* Stats Bar */
-        .stats-bar {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 16px 0;
-        }
-
-        .stat-pill {
+        .streak-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             background: rgba(255, 107, 53, 0.1);
             border: 2px solid rgba(255, 107, 53, 0.3);
-            padding: 8px 16px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-
-        .stat-pill:hover {
-            border-color: rgba(255, 107, 53, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .stat-icon { font-size: 18px; }
-        .stat-value {
-            font-family: 'Syne', sans-serif;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 15px;
             font-weight: 700;
-            color: var(--primary);
-        }
-
-        /* Level Progress */
-        .level-progress {
-            background: rgba(20, 20, 20, 0.8);
-            border: 2px solid rgba(255, 107, 53, 0.2);
-            border-radius: 20px;
-            padding: 16px;
+            color: #ff6b35;
             margin-top: 12px;
         }
 
-        .level-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
+        .flame-icon {
+            font-size: 20px;
+            animation: flicker 2s ease-in-out infinite;
         }
 
-        .level-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--primary);
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        .level-xp {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .level-bar {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .level-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--primary-light));
-            transition: width 0.6s ease;
-            box-shadow: 0 0 10px rgba(255, 107, 53, 0.6);
-        }
-
-        /* Streak */
-        .streak-tracker {
-            background: rgba(20, 20, 20, 0.8);
-            border: 2px solid rgba(255, 107, 53, 0.2);
-            border-radius: 20px;
-            padding: 16px;
-            margin-top: 12px;
-        }
-
-        .streak-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .streak-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-
-        .freeze-badge {
-            font-size: 10px;
-            padding: 4px 8px;
-            background: rgba(59, 130, 246, 0.2);
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            border-radius: 8px;
-            color: #60a5fa;
-        }
-
-        .streak-days {
-            display: flex;
-            gap: 8px;
-            justify-content: space-between;
-        }
-
-        .streak-day {
-            flex: 1;
-            text-align: center;
-            padding: 12px 8px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            transition: all 0.3s;
-        }
-
-        .streak-day.completed {
-            background: rgba(255, 107, 53, 0.1);
-            border-color: rgba(255, 107, 53, 0.3);
-        }
-
-        .streak-day.active {
-            background: rgba(255, 107, 53, 0.15);
-            border-color: rgba(255, 107, 53, 0.5);
-            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
-            transform: scale(1.05);
-        }
-
-        .streak-day.freeze {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-
-        .streak-icon {
-            font-size: 24px;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .streak-icon.missed {
-            filter: grayscale(100%) brightness(0.4);
-        }
-
-        .streak-label {
-            font-size: 9px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        /* Card */
         .card {
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-card-light));
+            background: linear-gradient(135deg, #141414 0%, #1a1a1a 100%);
             border-radius: 24px;
             padding: 40px 32px;
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 20px 60px rgba(0, 0, 0, 0.6);
+            box-shadow: 
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                0 20px 60px rgba(0, 0, 0, 0.6);
             position: relative;
             overflow: hidden;
-            animation: fadeInUp 0.6s ease-out;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .card::before {
@@ -274,17 +145,29 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            background: linear-gradient(90deg, transparent, #ff6b35, transparent);
             opacity: 0.7;
         }
 
-        /* Topic Selection */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.05) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
         .section-title {
             font-family: 'Syne', sans-serif;
             font-size: 24px;
             font-weight: 700;
-            color: var(--text-primary);
+            color: #f0f0f0;
             margin-bottom: 24px;
+            position: relative;
         }
 
         .topic-grid {
@@ -295,12 +178,12 @@
         }
 
         .topic-card {
-            background: linear-gradient(135deg, #1e1e1e, #252525);
-            border: 2px solid var(--border);
+            background: linear-gradient(135deg, #1e1e1e 0%, #252525 100%);
+            border: 2px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             padding: 24px 20px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -309,10 +192,13 @@
         .topic-card::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(247, 147, 30, 0.1));
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%);
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.4s ease;
         }
 
         .topic-card:hover {
@@ -321,11 +207,20 @@
             box-shadow: 0 8px 30px rgba(255, 107, 53, 0.2);
         }
 
-        .topic-card:hover::before { opacity: 1; }
+        .topic-card:hover::before {
+            opacity: 1;
+        }
+
+        .topic-card.selected {
+            border-color: #ff6b35;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(247, 147, 30, 0.15) 100%);
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.4);
+        }
 
         .topic-icon {
             font-size: 36px;
             margin-bottom: 12px;
+            display: block;
             position: relative;
             z-index: 1;
         }
@@ -334,92 +229,16 @@
             font-family: 'Syne', sans-serif;
             font-size: 16px;
             font-weight: 600;
+            color: #e0e0e0;
             position: relative;
             z-index: 1;
         }
 
-        .topic-stats {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 8px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Question */
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .timer {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 107, 53, 0.1);
-            border: 2px solid rgba(255, 107, 53, 0.3);
-            padding: 10px 20px;
-            border-radius: 20px;
-        }
-
-        .timer.warning {
-            animation: pulse 0.5s infinite;
-            border-color: var(--error);
-            background: rgba(248, 113, 113, 0.15);
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .timer-value {
-            font-family: 'Syne', sans-serif;
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary);
-            min-width: 30px;
-            text-align: center;
-        }
-
-        .timer.warning .timer-value { color: var(--error); }
-
-        .difficulty-badge {
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .difficulty-easy {
-            background: rgba(74, 222, 128, 0.15);
-            color: var(--success);
-            border: 2px solid rgba(74, 222, 128, 0.3);
-        }
-
-        .difficulty-medium {
-            background: rgba(251, 191, 36, 0.15);
-            color: var(--warning);
-            border: 2px solid rgba(251, 191, 36, 0.3);
-        }
-
-        .difficulty-hard {
-            background: rgba(248, 113, 113, 0.15);
-            color: var(--error);
-            border: 2px solid rgba(248, 113, 113, 0.3);
-        }
-
-        .question-meta {
+        .question-number {
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: var(--text-muted);
+            color: #888;
             margin-bottom: 20px;
             font-weight: 700;
         }
@@ -428,9 +247,10 @@
             font-family: 'Syne', sans-serif;
             font-size: 22px;
             line-height: 1.5;
-            color: var(--text-primary);
+            color: #f5f5f5;
             font-weight: 600;
             margin-bottom: 32px;
+            position: relative;
         }
 
         .choices {
@@ -439,123 +259,112 @@
             gap: 14px;
         }
 
-        .choice {
-            background: linear-gradient(135deg, #1e1e1e, #252525);
-            border: 2px solid var(--border);
-            color: var(--text-secondary);
+        .choice-button {
+            background: linear-gradient(135deg, #1e1e1e 0%, #252525 100%);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
             padding: 20px 24px;
             border-radius: 16px;
             font-size: 16px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             text-align: left;
             overflow: hidden;
         }
 
-        .choice::before {
+        .choice-button::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s ease;
         }
 
-        .choice span {
+        .choice-button span {
             position: relative;
             z-index: 1;
         }
 
-        .choice:hover:not(:disabled) {
+        .choice-button:hover {
             border-color: rgba(255, 107, 53, 0.6);
             box-shadow: 0 6px 25px rgba(255, 107, 53, 0.25);
             transform: translateX(4px);
         }
 
-        .choice.selected {
-            border-color: var(--primary);
+        .choice-button:active {
+            transform: translateX(2px) scale(0.98);
+        }
+
+        .choice-button.selected {
+            border-color: #ff6b35;
             box-shadow: 0 0 25px rgba(255, 107, 53, 0.4);
         }
 
-        .choice.selected::before { opacity: 0.2; }
+        .choice-button.selected::before {
+            opacity: 0.2;
+        }
 
-        .choice.correct {
-            border-color: var(--success);
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.2));
+        .choice-button.correct {
+            border-color: #4ade80;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(22, 163, 74, 0.2) 100%);
             box-shadow: 0 0 25px rgba(74, 222, 128, 0.3);
-            animation: correctPulse 0.5s;
         }
 
-        .choice.incorrect {
-            border-color: var(--error);
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
+        .choice-button.incorrect {
+            border-color: #f87171;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.2) 100%);
             box-shadow: 0 0 25px rgba(248, 113, 113, 0.3);
-            animation: shake 0.5s;
         }
 
-        @keyframes correctPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+        .choice-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .choice:disabled { cursor: not-allowed; opacity: 0.7; }
-
-        /* Progress */
-        .progress-bar {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 3px;
-            margin-bottom: 24px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--primary-light));
-            transition: width 0.6s;
-            box-shadow: 0 0 10px rgba(255, 107, 53, 0.6);
-        }
-
-        /* Result */
         .result-icon {
             font-size: 72px;
-            text-align: center;
             margin-bottom: 20px;
             animation: scaleIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
         }
 
         @keyframes scaleIn {
-            from { transform: scale(0) rotate(-180deg); opacity: 0; }
-            to { transform: scale(1) rotate(0); opacity: 1; }
+            from {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
         }
 
         .result-title {
             font-family: 'Syne', sans-serif;
             font-size: 32px;
             font-weight: 800;
-            text-align: center;
             margin-bottom: 16px;
+            text-align: center;
         }
 
         .result-title.success {
-            background: linear-gradient(135deg, var(--success), #22c55e);
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
             -webkit-background-clip: text;
-            background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .result-title.failure {
-            background: linear-gradient(135deg, var(--error), #ef4444);
+            background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
             -webkit-background-clip: text;
-            background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .explanation {
@@ -566,1405 +375,535 @@
             padding: 24px;
             background: rgba(0, 0, 0, 0.4);
             border-radius: 16px;
-            border-left: 4px solid var(--primary);
+            border-left: 4px solid #ff6b35;
+            text-align: left;
         }
 
         .explanation strong {
-            color: var(--text-primary);
+            color: #f0f0f0;
             display: block;
             margin-bottom: 10px;
             font-size: 16px;
         }
 
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 24px;
-            margin: 32px 0;
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin: 28px 0;
         }
 
-        .stat-card {
+        .stat-item {
             text-align: center;
         }
 
-        .stat-card-value {
+        .stat-value {
             font-family: 'Syne', sans-serif;
             font-size: 36px;
             font-weight: 800;
-            color: var(--primary);
+            color: #ff6b35;
+            display: block;
         }
 
-        .stat-card-label {
+        .stat-label {
             font-size: 11px;
-            color: var(--text-muted);
+            color: #888;
             text-transform: uppercase;
-            margin-top: 8px;
+            letter-spacing: 1px;
+            margin-top: 6px;
         }
 
-        /* Achievements */
-        .achievements-section {
-            margin: 32px 0;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 16px;
-            font-weight: 700;
-        }
-
-        .achievements-scroll {
-            overflow-x: auto;
-            padding: 16px 0;
-            margin: 0 -32px;
-            padding-left: 32px;
-            padding-right: 32px;
-        }
-
-        .achievements-scroll::-webkit-scrollbar { height: 6px; }
-        .achievements-scroll::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 3px;
-        }
-        .achievements-scroll::-webkit-scrollbar-thumb {
-            background: rgba(255, 107, 53, 0.5);
-            border-radius: 3px;
-        }
-
-        .achievements-grid {
-            display: flex;
-            gap: 16px;
-            min-width: max-content;
-        }
-
-        .achievement {
-            min-width: 120px;
-            padding: 20px;
-            background: linear-gradient(135deg, #1e1e1e, #252525);
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .achievement.earned {
-            border-color: rgba(255, 107, 53, 0.5);
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(247, 147, 30, 0.1));
-            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.2);
-        }
-
-        .achievement.rare {
-            border-color: rgba(139, 92, 246, 0.5);
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(124, 58, 237, 0.1));
-        }
-
-        .achievement.legendary {
-            border-color: rgba(251, 191, 36, 0.5);
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.1));
-        }
-
-        .achievement-icon {
-            font-size: 48px;
-            margin-bottom: 8px;
-        }
-
-        .achievement-icon.locked {
-            filter: grayscale(100%) brightness(0.3);
-        }
-
-        .achievement-name {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .achievement.earned .achievement-name {
-            color: var(--primary);
-        }
-
-        .achievement-rarity {
-            font-size: 9px;
-            text-transform: uppercase;
-            margin-top: 4px;
-            opacity: 0.6;
-        }
-
-        /* Buttons */
-        .btn {
+        .button-primary {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            border: none;
+            color: white;
             padding: 18px 36px;
             border-radius: 14px;
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 25px rgba(255, 107, 53, 0.4);
             width: 100%;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border: none;
-            font-family: 'Space Mono', monospace;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            box-shadow: 0 6px 25px rgba(255, 107, 53, 0.4);
-        }
-
-        .btn-primary:hover:not(:disabled) {
+        .button-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 35px rgba(255, 107, 53, 0.5);
         }
 
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: var(--text-secondary);
-            margin-top: 12px;
+        .button-primary:active {
+            transform: translateY(0);
         }
 
-        .btn-secondary:hover:not(:disabled) {
-            border-color: rgba(255, 255, 255, 0.4);
+        .progress-bar {
+            height: 6px;
             background: rgba(255, 255, 255, 0.05);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Animations */
-        .points-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Syne', sans-serif;
-            font-size: 48px;
-            font-weight: 800;
-            color: var(--success);
-            z-index: 1000;
-            pointer-events: none;
-            animation: popupAnim 1s forwards;
-        }
-
-        @keyframes popupAnim {
-            0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
-            100% { opacity: 0; transform: translate(-50%, -80%) scale(1); }
-        }
-
-        .xp-gain {
-            position: fixed;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Syne', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-            z-index: 1000;
-            pointer-events: none;
-            animation: xpFloat 1.5s forwards;
-        }
-
-        @keyframes xpFloat {
-            0% { opacity: 0; transform: translate(-50%, -50%) translateY(0); }
-            20% { opacity: 1; }
-            100% { opacity: 0; transform: translate(-50%, -50%) translateY(-100px); }
-        }
-
-        /* Utility */
-        .hidden { display: none !important; }
-        .text-center { text-align: center; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container { padding: 16px; }
-            .logo { font-size: 32px; }
-            .card { padding: 28px 20px; }
-            .question-text { font-size: 18px; }
-            .topic-grid { grid-template-columns: 1fr; }
-            .question-header { flex-direction: column; }
-            .timer, .difficulty-badge { width: 100%; justify-content: center; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .streak-day { padding: 8px 4px; }
-            .streak-icon { font-size: 20px; }
-            .choice { padding: 16px 20px; font-size: 15px; }
-            .achievements-scroll { margin: 0 -20px; padding-left: 20px; padding-right: 20px; }
-        }
-
-        @media (max-width: 360px) {
-            .logo { font-size: 28px; }
-            .question-text { font-size: 16px; }
-            .streak-days { gap: 4px; }
-            .streak-day { padding: 6px 2px; }
-            .streak-icon { font-size: 18px; }
-            .stat-card-value { font-size: 28px; }
-        }
-
-        /* Completion */
-        .completion-icon {
-            font-size: 90px;
-            text-align: center;
+            border-radius: 3px;
             margin-bottom: 24px;
-            animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes bounceIn {
-            from { transform: scale(0) rotate(-180deg); opacity: 0; }
-            50% { transform: scale(1.1) rotate(0); }
-            to { transform: scale(1) rotate(0); opacity: 1; }
-        }
-
-        .completion-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 36px;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .completion-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 15px;
-            margin-bottom: 32px;
-        }
-
-        /* Tooltip */
-        .tooltip {
+            overflow: hidden;
             position: relative;
-            cursor: help;
         }
 
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 200px;
-            background: #1a1a1a;
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            padding: 8px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -100px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 12px;
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b35 0%, #f7931e 100%);
+            width: 0%;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(255, 107, 53, 0.6);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .topic-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(255, 107, 53, 0.15);
             border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 20px;
+            font-size: 12px;
+            color: #ff6b35;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 36px;
+            }
 
-        .toast-notification {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100%);
-            background: #333;
-            color: #fff;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-            z-index: 9999;
-        }
+            .card {
+                padding: 32px 24px;
+            }
 
-        .toast-notification.visible {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
+            .question-text {
+                font-size: 20px;
+            }
 
+            .topic-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                gap: 24px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="background-grid"></div>
     
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <h1 class="logo">MindSprint</h1>
-            <p class="tagline">Daily Knowledge Challenge</p>
-            
-            <!-- Stats Bar -->
-            <div class="stats-bar" id="statsBar"></div>
-            
-            <!-- Level Progress -->
-            <div class="level-progress" id="levelProgress"></div>
-            
-            <!-- Streak Tracker -->
-            <div class="streak-tracker">
-                <div class="streak-header">
-                    <span class="streak-title">7-Day Streak</span>
-                    <span class="freeze-badge hidden" id="freezeBadge">❄️ <span id="freezeCount">0</span> Freezes</span>
-                </div>
-                <div class="streak-days" id="streakDays"></div>
+    <div class="game-container">
+        <div class="header">
+            <div class="logo">MindSprint</div>
+            <div class="tagline">Daily Knowledge Challenge</div>
+            <div class="streak-indicator">
+                <span class="flame-icon">🔥</span>
+                <span id="streakText">Day 1</span>
             </div>
-        </header>
+        </div>
 
-        <!-- Main Content -->
-        <main id="mainContent"></main>
+        <!-- Topic Selection View -->
+        <div id="topicView">
+            <div class="card">
+                <h2 class="section-title">Choose Your Challenge</h2>
+                <div class="topic-grid">
+                    <div class="topic-card" onclick="selectTopic('tech')">
+                        <span class="topic-icon">💻</span>
+                        <div class="topic-name">Tech & AI</div>
+                    </div>
+                    <div class="topic-card" onclick="selectTopic('behavior')">
+                        <span class="topic-icon">🧠</span>
+                        <div class="topic-name">Human Behavior</div>
+                    </div>
+                    <div class="topic-card" onclick="selectTopic('career')">
+                        <span class="topic-icon">📈</span>
+                        <div class="topic-name">Career Growth</div>
+                    </div>
+                    <div class="topic-card" onclick="selectTopic('science')">
+                        <span class="topic-icon">🔬</span>
+                        <div class="topic-name">Science</div>
+                    </div>
+                </div>
+                <p style="text-align: center; color: #888; font-size: 13px; margin-top: 16px;">
+                    Answer 3 questions daily to maintain your streak
+                </p>
+            </div>
+        </div>
+
+        <!-- Question View -->
+        <div id="questionView" class="hidden">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="card">
+                <div class="topic-badge" id="selectedTopicBadge"></div>
+                <div class="question-number" id="questionNumber">Question 1 of 3</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+                <div class="choices" id="choicesContainer"></div>
+            </div>
+        </div>
+
+        <!-- Result View -->
+        <div id="resultView" class="hidden">
+            <div class="card">
+                <div class="result-icon" id="resultIcon">🎉</div>
+                <div class="result-title" id="resultTitle">Correct!</div>
+                <div class="explanation" id="explanation">
+                    <strong>Did you know?</strong>
+                    The explanation will appear here...
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="currentStreak">1</span>
+                        <span class="stat-label">Streak</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="correctAnswers">0</span>
+                        <span class="stat-label">Correct</span>
+                    </div>
+                </div>
+                <button class="button-primary" id="nextButton">Next Question</button>
+            </div>
+        </div>
     </div>
 
     <script>
-// ============================================
-// CONFIGURATION
-// ============================================
-const CONFIG = {
-    QUESTIONS_PER_SESSION: 5,
-    TIMER: { easy: 15, medium: 20, hard: 25 },
-    POINTS: { easy: 10, medium: 20, hard: 30, speedBonus: 5 },
-    XP: {
-        correct: 25,
-        incorrect: 5,
-        perfectRound: 50,
-        streak: { 3: 20, 5: 50, 7: 100 }
-    },
-    LEVELS: { xpPerLevel: 100, maxLevel: 50 },
-    STREAK: { maxDays: 7, maxFreezes: 2 },
-    DIFFICULTY_ADAPTATION: { increaseAt: 80, decreaseAt: 40 }
-};
-
-// ============================================
-// STATE MANAGEMENT
-// ============================================
-const GameState = {
-    // Player progress
-    level: 1,
-    totalXP: 0,
-    totalPoints: 0,
-    
-    // Current session
-    topic: null,
-    questions: [],
-    currentIndex: 0,
-    sessionPoints: 0,
-    correctCount: 0,
-    answerTimes: [],
-    
-    // Streak - FIXED INITIALIZATION
-    streak: {
-        days: Array(7).fill(false),
-        current: 0,
-        freezes: 2
-    },
-    
-    // Topic mastery
-    topicStats: {
-        tech: { played: 0, correct: 0, total: 0, avgTime: 0 },
-        behavior: { played: 0, correct: 0, total: 0, avgTime: 0 },
-        career: { played: 0, correct: 0, total: 0, avgTime: 0 },
-        science: { played: 0, correct: 0, total: 0, avgTime: 0 }
-    },
-    
-    // Timer
-    timerInterval: null,
-    timeRemaining: 0,
-    
-    // Question tracking (minimize repetition)
-    askedQuestions: { tech: [], behavior: [], career: [], science: [] },
-    
-    init() {
-        this.load();
-        return this;
-    },
-    
-    load() {
-        const saved = localStorage.getItem('mindsprintState');
-        if (saved) {
-            const data = JSON.parse(saved);
-            Object.assign(this, data);
-        }
-        
-        // FIXED: Ensure streak object always has required properties
-        if (!this.streak || !Array.isArray(this.streak.days)) {
-            this.streak = {
-                days: Array(7).fill(false),
-                current: 0,
-                freezes: 2
-            };
-        }
-    },
-    
-    save() {
-        // Don't save timer interval
-        const { timerInterval, ...saveData } = this;
-        localStorage.setItem('mindsprintState', JSON.stringify(saveData));
-    },
-    
-    reset() {
-        localStorage.removeItem('mindsprintState');
-        localStorage.removeItem('mindsprintDaily');
-        localStorage.removeItem('mindsprintStreak');
-        location.reload();
-    },
-    
-    addXP(amount) {
-        this.totalXP += amount;
-        const oldLevel = this.level;
-        this.level = Math.floor(this.totalXP / CONFIG.LEVELS.xpPerLevel) + 1;
-        
-        if (this.level > oldLevel && this.level <= CONFIG.LEVELS.maxLevel) {
-            this.showLevelUp(this.level);
-        }
-        
-        this.save();
-        UI.updateLevelProgress();
-    },
-    
-    showLevelUp(level) {
-        UI.showAnimation('xp', `🎊 Level ${level}!`);
-        setTimeout(() => {
-            if (window.navigator.vibrate) navigator.vibrate(200);
-        }, 100);
-    }
-};
-
-// ============================================
-// QUESTION ENGINE
-// ============================================
-const QuestionEngine = {
-    database: {},
-    
-    async init() {
-        try {
-            const response = await fetch('./questions.json'); 
-            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-            this.database = await response.json();
-            console.log('✅ Questions loaded:', Object.keys(this.database).length, 'topics');
-        } catch (error) {
-            console.warn('⚠️ Could not load questions from questions.json, using fallback.', error);
-            this.database = FALLBACK_QUESTIONS;
-        }
-    },
-    
-    generateSession(topic) {
-        const allQuestions = this.database[topic] || [];
-        const asked = GameState.askedQuestions[topic] || [];
-        
-        // Filter out recently asked questions
-        let available = allQuestions.filter(q => 
-            !asked.includes(q.question)
-        );
-        
-        // If we've asked too many, reset the tracking
-        if (available.length < CONFIG.QUESTIONS_PER_SESSION) {
-            GameState.askedQuestions[topic] = [];
-            available = allQuestions;
-        }
-        
-        // Adaptive difficulty based on past performance
-        const stats = GameState.topicStats[topic];
-        const accuracy = stats.total > 0 ? (stats.correct / stats.total) * 100 : 50;
-        
-        let distribution = { easy: 2, medium: 2, hard: 1 };
-        
-        if (accuracy > CONFIG.DIFFICULTY_ADAPTATION.increaseAt) {
-            distribution = { easy: 1, medium: 2, hard: 2 }; // Harder
-        } else if (accuracy < CONFIG.DIFFICULTY_ADAPTATION.decreaseAt) {
-            distribution = { easy: 3, medium: 2, hard: 0 }; // Easier
-        }
-        
-        const questions = [];
-        
-        for (const [diff, count] of Object.entries(distribution)) {
-            const filtered = this.shuffle(available.filter(q => q.difficulty === diff));
-            questions.push(...filtered.slice(0, count));
-        }
-        
-        const session = this.shuffle(questions).slice(0, CONFIG.QUESTIONS_PER_SESSION);
-        
-        // Track these questions
-        GameState.askedQuestions[topic].push(...session.map(q => q.question));
-        
-        return session;
-    },
-    
-    shuffle(array) {
-        const arr = [...array];
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-    }
-};
-
-// ============================================
-// SCORING & ACHIEVEMENTS
-// ============================================
-const Scoring = {
-    calculatePoints(question, timeSpent) {
-        let points = CONFIG.POINTS[question.difficulty];
-        
-        // Speed bonus
-        const timeLimit = CONFIG.TIMER[question.difficulty];
-        if (timeSpent < timeLimit / 2) {
-            points += CONFIG.POINTS.speedBonus;
-        }
-        
-        return points;
-    },
-    
-    calculateXP(isCorrect, streak, isPerfect = false) {
-        let xp = isCorrect ? CONFIG.XP.correct : CONFIG.XP.incorrect;
-        
-        // Streak bonus
-        if (CONFIG.XP.streak[streak]) {
-            xp += CONFIG.XP.streak[streak];
-        }
-        
-        // Perfect round bonus
-        if (isPerfect) {
-            xp += CONFIG.XP.perfectRound;
-        }
-        
-        return xp;
-    }
-};
-
-const Achievements = {
-    list: [
-        { id: 'first_day', name: 'First Steps', icon: '🎯', rarity: 'common', check: s => s.daysPlayed >= 1 },
-        { id: 'streak_3', name: '3-Day Fire', icon: '🔥', rarity: 'common', check: s => s.streak >= 3 },
-        { id: 'streak_5', name: 'Dedicated', icon: '⚡', rarity: 'rare', check: s => s.streak >= 5 },
-        { id: 'streak_7', name: 'Week Warrior', icon: '👑', rarity: 'legendary', check: s => s.streak >= 7 },
-        { id: 'perfect', name: 'Flawless', icon: '💯', rarity: 'rare', check: s => s.accuracy === 100 },
-        { id: 'century', name: 'Centurion', icon: '⭐', rarity: 'common', check: s => s.totalPoints >= 100 },
-        { id: 'level_5', name: 'Rising Star', icon: '🌟', rarity: 'rare', check: s => s.level >= 5 },
-        { id: 'level_10', name: 'Expert', icon: '🏆', rarity: 'legendary', check: s => s.level >= 10 },
-        { id: 'speed', name: 'Quick Thinker', icon: '⚡', rarity: 'rare', check: s => s.avgTime < 5 },
-        { id: 'master_tech', name: 'Tech Master', icon: '💻', rarity: 'legendary', check: s => s.techMastery >= 80 },
-    ],
-    
-    getUnlocked(stats) {
-        return this.list.filter(a => a.check(stats));
-    },
-    
-    getStats() {
-        const streak = StreakManager.getCurrent();
-        const daily = DailyManager.getTodayData();
-        
-        return {
-            daysPlayed: GameState.streak.days.filter(d => d).length,
-            streak: streak,
-            accuracy: parseInt(daily.accuracy) || 0,
-            totalPoints: GameState.totalPoints,
-            level: GameState.level,
-            avgTime: 8, // Calculate from answer times
-            techMastery: this.getTopicMastery('tech')
+        // Question Database - Organized by topic
+        const questionDatabase = {
+            tech: [
+                {
+                    question: "Which machine learning technique mimics the human brain's neural network structure?",
+                    choices: ["Decision Trees", "Deep Learning", "Linear Regression"],
+                    correctIndex: 1,
+                    explanation: "Deep Learning uses artificial neural networks with multiple layers (deep neural networks) that are inspired by the structure and function of the human brain, allowing machines to learn complex patterns."
+                },
+                {
+                    question: "What does 'API' stand for in software development?",
+                    choices: ["Application Programming Interface", "Advanced Programming Integration", "Automated Process Interface"],
+                    correctIndex: 0,
+                    explanation: "API (Application Programming Interface) is a set of protocols and tools that allows different software applications to communicate with each other, defining how requests and responses should be structured."
+                },
+                {
+                    question: "Which AI concept allows models to improve their performance by learning from past mistakes?",
+                    choices: ["Supervised Learning", "Reinforcement Learning", "Transfer Learning"],
+                    correctIndex: 1,
+                    explanation: "Reinforcement Learning is a type of machine learning where an agent learns to make decisions by performing actions and receiving rewards or penalties, continuously improving through trial and error."
+                },
+                {
+                    question: "What is the primary purpose of blockchain technology?",
+                    choices: ["Speed up transactions", "Create decentralized, tamper-proof records", "Reduce energy consumption"],
+                    correctIndex: 1,
+                    explanation: "Blockchain creates a decentralized, distributed ledger that records transactions across multiple computers, making it nearly impossible to alter past records without consensus, ensuring transparency and security."
+                },
+                {
+                    question: "Which programming paradigm treats computation as the evaluation of mathematical functions?",
+                    choices: ["Object-Oriented", "Functional Programming", "Procedural"],
+                    correctIndex: 1,
+                    explanation: "Functional Programming emphasizes pure functions, immutability, and avoiding side effects, treating computation as mathematical function evaluation. Languages like Haskell and features in JavaScript exemplify this approach."
+                }
+            ],
+            behavior: [
+                {
+                    question: "What psychological principle explains why we're more likely to comply with larger requests after agreeing to smaller ones?",
+                    choices: ["Anchoring Effect", "Foot-in-the-Door Technique", "Cognitive Dissonance"],
+                    correctIndex: 1,
+                    explanation: "The Foot-in-the-Door technique is a compliance strategy where getting someone to agree to a small request increases the likelihood they'll agree to a larger request later, as people want to appear consistent."
+                },
+                {
+                    question: "Which cognitive bias causes us to seek information that confirms our existing beliefs?",
+                    choices: ["Confirmation Bias", "Availability Heuristic", "Dunning-Kruger Effect"],
+                    correctIndex: 0,
+                    explanation: "Confirmation Bias is our tendency to search for, interpret, and recall information in a way that confirms our preexisting beliefs, while giving less consideration to alternative possibilities."
+                },
+                {
+                    question: "What term describes our tendency to overestimate how much others notice our appearance and behavior?",
+                    choices: ["Spotlight Effect", "Fundamental Attribution Error", "Social Proof"],
+                    correctIndex: 0,
+                    explanation: "The Spotlight Effect is the phenomenon where people overestimate how much others notice aspects of their appearance or behavior. In reality, people are typically more focused on themselves."
+                },
+                {
+                    question: "Which neurotransmitter is primarily associated with reward, motivation, and pleasure?",
+                    choices: ["Serotonin", "Dopamine", "Cortisol"],
+                    correctIndex: 1,
+                    explanation: "Dopamine plays a crucial role in reward-motivated behavior, pleasure, motivation, and reinforcement learning. It's released when we experience something rewarding or anticipate a reward."
+                },
+                {
+                    question: "What psychological phenomenon causes groups to make riskier decisions than individuals would alone?",
+                    choices: ["Groupthink", "Risky Shift", "Social Loafing"],
+                    correctIndex: 1,
+                    explanation: "Risky Shift (or Choice Shift) occurs when group discussions lead to more extreme decisions than individual members would make alone, often toward greater risk-taking due to shared responsibility."
+                }
+            ],
+            career: [
+                {
+                    question: "What does the '80/20 rule' (Pareto Principle) suggest about productivity?",
+                    choices: ["80% effort yields 20% results", "80% of results come from 20% of efforts", "Work 80 hours to succeed"],
+                    correctIndex: 1,
+                    explanation: "The Pareto Principle states that roughly 80% of outcomes come from 20% of causes. In career terms, focusing on the most impactful 20% of tasks can drive 80% of your results."
+                },
+                {
+                    question: "Which skill is considered most valuable for career growth in the AI era?",
+                    choices: ["Memorization", "Critical Thinking & Adaptability", "Speed typing"],
+                    correctIndex: 1,
+                    explanation: "As AI automates routine tasks, critical thinking, creativity, emotional intelligence, and adaptability become crucial differentiators. The ability to ask the right questions and adapt to change is invaluable."
+                },
+                {
+                    question: "What does 'imposter syndrome' refer to in professional contexts?",
+                    choices: ["Pretending to have skills you don't", "Feeling like a fraud despite achievements", "Copying others' work"],
+                    correctIndex: 1,
+                    explanation: "Imposter Syndrome is a psychological pattern where successful people doubt their abilities and fear being exposed as a 'fraud,' despite evidence of their competence and achievements."
+                },
+                {
+                    question: "Which networking approach is most effective for career advancement?",
+                    choices: ["Collecting as many contacts as possible", "Building genuine, mutually beneficial relationships", "Only networking with senior executives"],
+                    correctIndex: 1,
+                    explanation: "Quality over quantity matters in networking. Building authentic relationships based on mutual value, trust, and genuine interest creates a stronger professional network than superficial connections."
+                },
+                {
+                    question: "What is the recommended frequency for updating your skills in a rapidly changing field?",
+                    choices: ["Every 5 years", "Continuously throughout your career", "Only when changing jobs"],
+                    correctIndex: 1,
+                    explanation: "Continuous learning is essential in today's fast-paced world. Regularly updating skills—through courses, reading, projects, or experimentation—keeps you relevant and competitive in your field."
+                }
+            ],
+            science: [
+                {
+                    question: "What percentage of our DNA do we share with chimpanzees?",
+                    choices: ["50%", "75%", "98-99%"],
+                    correctIndex: 2,
+                    explanation: "Humans share approximately 98-99% of their DNA with chimpanzees, making them our closest living relatives. This small genetic difference accounts for the significant behavioral and cognitive differences."
+                },
+                {
+                    question: "Which force is responsible for keeping planets in orbit around the sun?",
+                    choices: ["Electromagnetic Force", "Gravity", "Nuclear Force"],
+                    correctIndex: 1,
+                    explanation: "Gravity is the fundamental force that attracts objects with mass toward each other. The sun's massive gravitational pull keeps planets in their orbits, balancing with their orbital velocity."
+                },
+                {
+                    question: "What is the speed of light in a vacuum?",
+                    choices: ["300,000 km/s", "150,000 km/s", "500,000 km/s"],
+                    correctIndex: 0,
+                    explanation: "Light travels at approximately 299,792 kilometers per second (often rounded to 300,000 km/s) in a vacuum. This is the universal speed limit—nothing can travel faster than light."
+                },
+                {
+                    question: "Which element is essential for all known forms of life?",
+                    choices: ["Silicon", "Carbon", "Nitrogen"],
+                    correctIndex: 1,
+                    explanation: "Carbon is the foundation of all known life because of its unique ability to form stable bonds with many elements, including itself, creating the complex molecules necessary for life."
+                },
+                {
+                    question: "What phenomenon explains why the sky appears blue during the day?",
+                    choices: ["Reflection from oceans", "Rayleigh Scattering", "Atmospheric heating"],
+                    correctIndex: 1,
+                    explanation: "Rayleigh Scattering causes shorter blue wavelengths of sunlight to scatter more than other colors as light passes through Earth's atmosphere, making the sky appear blue to our eyes."
+                }
+            ]
         };
-    },
-    
-    getTopicMastery(topic) {
-        const stats = GameState.topicStats[topic];
-        return stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
-    }
-};
 
-// ============================================
-// STREAK MANAGEMENT
-// ============================================
-const StreakManager = {
-    update(completed) {
-        const today = new Date().getDay();
-        const adjustedToday = today === 0 ? 6 : today - 1; // FIX ERROR 1
-        
-        // Prevent double-marking the same day (FIX ERROR 4)
-        const lastCompletion = localStorage.getItem('mindsprintLastCompletion');
-        const todayString = new Date().toDateString();
-        
-        if (lastCompletion !== todayString) {
-            GameState.streak.days[adjustedToday] = completed;
-            localStorage.setItem('mindsprintLastCompletion', todayString);
-        }
-        
-        // Calculate streak (counting backwards from adjusted today)
-        let current = 0;
-        for (let i = 0; i < 7; i++) {
-            const dayIndex = (adjustedToday - i + 7) % 7;
-            if (GameState.streak.days[dayIndex]) {
-                current++;
-            } else break;
-        }
-        
-        GameState.streak.current = current;
-        GameState.save();
-        
-        return current;
-    },
-    
-    getCurrent() {
-        // FIXED: Add safety check for undefined streak
-        if (!GameState.streak || !Array.isArray(GameState.streak.days)) {
-            return 0;
-        }
-        
-        const today = new Date().getDay();
-        const adjustedToday = today === 0 ? 6 : today - 1; // Convert to array index
-        let streak = 0;
-        for (let i = 0; i < 7; i++) {
-            const dayIndex = (adjustedToday - i + 7) % 7;
-            if (GameState.streak.days[dayIndex]) {
-                streak++;
-            } else break;
-        }
-        return streak;
-    },
-    
-    useFreeze() {
-        if (GameState.streak.freezes > 0) {
-            GameState.streak.freezes--;
-            const today = new Date().getDay();
-            const adjustedToday = today === 0 ? 6 : today - 1;
-            GameState.streak.days[adjustedToday] = 'freeze';
-            GameState.save();
+        // Game State
+        let currentTopic = null;
+        let currentQuestionIndex = 0;
+        let streak = 1;
+        let correctCount = 0;
+        let dailyQuestions = [];
+        const QUESTIONS_PER_DAY = 3;
+
+        // Load saved data
+        function loadGameState() {
+            const saved = localStorage.getItem('mindsprintState');
+            if (saved) {
+                const state = JSON.parse(saved);
+                const today = new Date().toDateString();
+                
+                if (state.lastPlayed === today && state.completed) {
+                    alert('🎯 You\'ve already completed today\'s challenge!\n\nCome back tomorrow for new questions.');
+                    return false;
+                }
+                
+                if (state.lastPlayed !== today) {
+                    // New day - check if streak continues
+                    const lastDate = new Date(state.lastPlayed);
+                    const currentDate = new Date();
+                    const diffDays = Math.floor((currentDate - lastDate) / (1000 * 60 * 60 * 24));
+                    
+                    if (diffDays === 1) {
+                        streak = state.streak + 1;
+                    } else if (diffDays > 1) {
+                        streak = 1; // Streak broken
+                    }
+                } else {
+                    streak = state.streak;
+                }
+                
+                document.getElementById('streakText').textContent = `Day ${streak}`;
+            }
             return true;
         }
-        return false;
-    },
-    
-    canUseFreeze() {
-        return GameState.streak.freezes > 0;
-    }
-};
 
-// ============================================
-// DAILY MANAGEMENT
-// ============================================
-const DailyManager = {
-    isCompletedToday() {
-        // FIX ERROR 5: Check both daily completion and last completion timestamp
-        const lastCompletion = localStorage.getItem('mindsprintLastCompletion');
-        const todayString = new Date().toDateString();
-        
-        if (lastCompletion !== todayString) {
-            return false;
+        function saveGameState(completed = false) {
+            const state = {
+                streak: streak,
+                lastPlayed: new Date().toDateString(),
+                completed: completed
+            };
+            localStorage.setItem('mindsprintState', JSON.stringify(state));
         }
-        
-        const saved = localStorage.getItem('mindsprintDaily');
-        if (!saved) return false;
-        
-        const data = JSON.parse(saved);
-        const today = new Date().toDateString();
-        
-        return data.date === today && data.completed;
-    },
-    
-    saveCompletion(data) {
-        const dailyData = {
-            date: new Date().toDateString(),
-            completed: true,
-            ...data
-        };
-        localStorage.setItem('mindsprintDaily', JSON.stringify(dailyData));
-    },
-    
-    getTodayData() {
-        const saved = localStorage.getItem('mindsprintDaily');
-        if (!saved) return {};
-        
-        const data = JSON.parse(saved);
-        const today = new Date().toDateString();
-        
-        return data.date === today ? data : {};
-    }
-};
 
-// ============================================
-// TIMER
-// ============================================
-const Timer = {
-    start(duration, onTick, onComplete) {
-        GameState.timeRemaining = duration;
-        
-        if (GameState.timerInterval) {
-            clearInterval(GameState.timerInterval);
-        }
-        
-        GameState.timerInterval = setInterval(() => {
-            GameState.timeRemaining--;
+        function selectTopic(topic) {
+            if (!loadGameState()) return;
             
-            if (onTick) onTick(GameState.timeRemaining);
+            currentTopic = topic;
+            currentQuestionIndex = 0;
+            correctCount = 0;
             
-            if (GameState.timeRemaining <= 0) {
-                this.stop();
-                if (onComplete) onComplete();
-            }
-        }, 1000);
-    },
-    
-    stop() {
-        if (GameState.timerInterval) {
-            clearInterval(GameState.timerInterval);
-            GameState.timerInterval = null;
-        }
-    },
-    
-    getElapsed(startTime) {
-        return Math.floor((Date.now() - startTime) / 1000);
-    }
-};
-
-// ============================================
-// UI RENDERING
-// ============================================
-const UI = {
-    render(view, data = {}) {
-        const content = document.getElementById('mainContent');
-        content.innerHTML = this.views[view](data);
-        
-        // Attach event listeners
-        if (this.listeners[view]) {
-            this.listeners[view]();
-        }
-    },
-    
-    views: {
-        topicSelection() {
-            const topics = [
-                { id: 'tech', icon: '💻', name: 'Tech & AI' },
-                { id: 'behavior', icon: '🧠', name: 'Human Behavior' },
-                { id: 'career', icon: '📈', name: 'Career Growth' },
-                { id: 'science', icon: '🔬', name: 'Science' }
-            ];
+            // Select 3 random questions from the chosen topic
+            const allQuestions = questionDatabase[topic];
+            dailyQuestions = [];
+            const usedIndices = new Set();
             
-            return `
-                <div class="card">
-                    <h2 class="section-title">Choose Your Challenge</h2>
-                    <div class="topic-grid">
-                        ${topics.map(t => {
-                            const stats = GameState.topicStats[t.id];
-                            const mastery = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
-                            return `
-                                <div class="topic-card" data-topic="${t.id}">
-                                    <div class="topic-icon">${t.icon}</div>
-                                    <div class="topic-name">${t.name}</div>
-                                    <div class="topic-stats">${stats.played} played • ${mastery}% mastery</div>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                    <p class="text-center" style="color: var(--text-muted); font-size: 13px; margin-top: 16px;">
-                        ${CONFIG.QUESTIONS_PER_SESSION} questions • Adaptive difficulty • XP rewards
-                    </p>
-                </div>
-            `;
-        },
-        
-        question(data) {
-            const q = data.question;
-            const idx = data.index;
-            const total = data.total;
-            
-            return `
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: ${(idx / total) * 100}%"></div>
-                </div>
-                
-                <div class="card">
-                    <div class="question-header">
-                        <div class="timer" id="timer">
-                            <span>⏱️</span>
-                            <span class="timer-value" id="timerValue">${CONFIG.TIMER[q.difficulty]}</span>
-                        </div>
-                        <div class="difficulty-badge difficulty-${q.difficulty}">
-                            ${q.difficulty.toUpperCase()}
-                        </div>
-                    </div>
-                    
-                    <div class="question-meta">Question ${idx + 1} of ${total}</div>
-                    <div class="question-text">${q.question}</div>
-                    
-                    <div class="choices">
-                        ${q.choices.map((choice, i) => `
-                            <button class="choice" data-index="${i}">
-                                <span>${choice}</span>
-                            </button>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        },
-        
-        result(data) {
-            const { isCorrect, question, earnedPoints, earnedXP } = data;
-            
-            return `
-                <div class="card">
-                    <div class="result-icon">${isCorrect ? '🎉' : '💡'}</div>
-                    <div class="result-title ${isCorrect ? 'success' : 'failure'}">
-                        ${isCorrect ? 'Brilliant!' : 'Not Quite!'}
-                    </div>
-                    
-                    <div class="explanation">
-                        <strong>Did you know?</strong>
-                        ${question.explanation}
-                    </div>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-card-value">+${earnedPoints}</div>
-                            <div class="stat-card-label">Points</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-value">+${earnedXP}</div>
-                            <div class="stat-card-label">XP</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-value">${GameState.correctCount}/${GameState.currentIndex + 1}</div>
-                            <div class="stat-card-label">Correct</div>
-                        </div>
-                    </div>
-                    
-                    <button class="btn btn-primary" id="nextBtn">
-                        ${GameState.currentIndex >= CONFIG.QUESTIONS_PER_SESSION - 1 ? 'See Results' : 'Next Question'}
-                    </button>
-                </div>
-            `;
-        },
-        
-        completion(data) {
-            const { points, accuracy, xp } = data;
-            const emoji = accuracy >= 90 ? '🏆' : accuracy >= 70 ? '🎯' : '📚';
-            
-            return `
-                <div class="card">
-                    <div class="completion-icon">${emoji}</div>
-                    <h2 class="completion-title">Challenge Complete!</h2>
-                    <p class="completion-subtitle">Amazing work! Keep your streak going.</p>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-card-value">${points}</div>
-                            <div class="stat-card-label">Points</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-value">+${xp}</div>
-                            <div class="stat-card-label">XP</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-value">${GameState.correctCount}/${CONFIG.QUESTIONS_PER_SESSION}</div>
-                            <div class="stat-card-label">Correct</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-value">${accuracy}%</div>
-                            <div class="stat-card-label">Accuracy</div>
-                        </div>
-                    </div>
-                    
-                    <div class="achievements-section">
-                        <div class="section-subtitle">Achievements</div>
-                        <div class="achievements-scroll">
-                            <div class="achievements-grid" id="achievementsGrid"></div>
-                        </div>
-                    </div>
-                    
-                    <button class="btn btn-primary" id="shareBtn">Share Results</button>
-                    <button class="btn btn-secondary" id="homeBtn">Back to Home</button>
-                </div>
-            `;
-        },
-        
-        alreadyCompleted(data) {
-            return `
-                <div class="card">
-                    <div class="completion-icon">✅</div>
-                    <h2 class="completion-title">All Done Today!</h2>
-                    <p class="completion-subtitle">You've completed today's challenge</p>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-card-value">${data.points || 0}</div>
-                            <div class="stat-card-label">Points</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-value">${data.accuracy || '0%'}</div>
-                            <div class="stat-card-label">Accuracy</div>
-                        </div>
-                    </div>
-                    
-                    <div class="achievements-section">
-                        <div class="section-subtitle">This Week's Progress</div>
-                        <div class="achievements-scroll">
-                            <div class="achievements-grid" id="weekProgress"></div>
-                        </div>
-                    </div>
-                    
-                    <p class="text-center" style="color: var(--text-muted); margin: 24px 0; font-size: 14px;">
-                        Come back tomorrow for new questions!
-                    </p>
-                    
-                    <button class="btn btn-secondary" onclick="location.reload()">Refresh</button>
-                </div>
-            `;
-        }
-    },
-    
-    listeners: {
-        topicSelection() {
-            document.querySelectorAll('.topic-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const topic = card.dataset.topic;
-                    Game.startSession(topic);
-                });
-            });
-        },
-        
-        question() {
-            const startTime = Date.now();
-            
-            document.querySelectorAll('.choice').forEach(choice => {
-                choice.addEventListener('click', function() {
-                    if (this.disabled) return;
-                    
-                    // Disable all choices
-                    document.querySelectorAll('.choice').forEach(c => c.disabled = true);
-                    
-                    // Mark selected
-                    this.classList.add('selected');
-                    
-                    // Calculate time spent
-                    const timeSpent = Timer.getElapsed(startTime);
-                    
-                    setTimeout(() => {
-                        Game.checkAnswer(parseInt(this.dataset.index), timeSpent);
-                    }, 500);
-                });
-            });
-            
-            // Start timer
-            const q = GameState.questions[GameState.currentIndex];
-            Timer.start(
-                CONFIG.TIMER[q.difficulty],
-                (time) => {
-                    const el = document.getElementById('timerValue');
-                    if (el) el.textContent = time;
-                    
-                    const timer = document.getElementById('timer');
-                    if (time <= 5) {
-                        timer.classList.add('warning');
-                    }
-                },
-                () => {
-                    Game.handleTimeout();
+            while (dailyQuestions.length < QUESTIONS_PER_DAY && dailyQuestions.length < allQuestions.length) {
+                const randomIndex = Math.floor(Math.random() * allQuestions.length);
+                if (!usedIndices.has(randomIndex)) {
+                    usedIndices.add(randomIndex);
+                    dailyQuestions.push(allQuestions[randomIndex]);
                 }
-            );
-        },
-        
-        result() {
-            document.getElementById('nextBtn').addEventListener('click', () => {
-                if (GameState.currentIndex >= CONFIG.QUESTIONS_PER_SESSION - 1) {
-                    Game.showCompletion();
-                } else {
-                    Game.nextQuestion();
+            }
+            
+            // Update UI
+            document.getElementById('topicView').classList.add('hidden');
+            document.getElementById('questionView').classList.remove('hidden');
+            
+            const topicNames = {
+                tech: 'Tech & AI',
+                behavior: 'Human Behavior',
+                career: 'Career Growth',
+                science: 'Science'
+            };
+            document.getElementById('selectedTopicBadge').textContent = topicNames[topic];
+            
+            loadQuestion();
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestionIndex / QUESTIONS_PER_DAY) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function loadQuestion() {
+            const question = dailyQuestions[currentQuestionIndex];
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1} of ${QUESTIONS_PER_DAY}`;
+            document.getElementById('questionText').textContent = question.question;
+            
+            const choicesContainer = document.getElementById('choicesContainer');
+            choicesContainer.innerHTML = '';
+            
+            question.choices.forEach((choice, index) => {
+                const button = document.createElement('button');
+                button.className = 'choice-button';
+                button.innerHTML = `<span>${choice}</span>`;
+                button.onclick = () => selectChoice(index, button);
+                choicesContainer.appendChild(button);
+            });
+
+            updateProgress();
+        }
+
+        function selectChoice(index, buttonElement) {
+            const allButtons = document.querySelectorAll('.choice-button');
+            allButtons.forEach(btn => btn.classList.remove('selected'));
+            
+            buttonElement.classList.add('selected');
+            
+            setTimeout(() => checkAnswer(index), 500);
+        }
+
+        function checkAnswer(selectedIndex) {
+            const question = dailyQuestions[currentQuestionIndex];
+            const isCorrect = selectedIndex === question.correctIndex;
+            const allButtons = document.querySelectorAll('.choice-button');
+            
+            allButtons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === question.correctIndex) {
+                    btn.classList.add('correct');
+                } else if (idx === selectedIndex && !isCorrect) {
+                    btn.classList.add('incorrect');
                 }
             });
-        },
-        
-        completion() {
-            this.renderAchievements();
-            
-            document.getElementById('shareBtn').addEventListener('click', () => {
-                Game.shareResults();
-            });
-            
-            document.getElementById('homeBtn').addEventListener('click', () => {
-                location.reload();
-            });
-        },
-        
-        alreadyCompleted() {
-            this.renderWeekProgress();
-        },
-        
-        renderAchievements() {
-            const stats = Achievements.getStats();
-            const unlocked = Achievements.getUnlocked(stats);
-            const grid = document.getElementById('achievementsGrid');
-            
-            if (!grid) return;
-            
-            grid.innerHTML = Achievements.list.map(a => {
-                const earned = unlocked.find(u => u.id === a.id);
-                return `
-                    <div class="achievement ${earned ? 'earned' : ''} ${a.rarity}">
-                        <div class="achievement-icon ${earned ? '' : 'locked'}">${a.icon}</div>
-                        <div class="achievement-name">${a.name}</div>
-                        <div class="achievement-rarity">${a.rarity}</div>
-                    </div>
-                `;
-            }).join('');
-        },
-        
-        renderWeekProgress() {
-            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-            const grid = document.getElementById('weekProgress');
-            
-            if (!grid) return;
-            
-            grid.innerHTML = days.map((day, i) => {
-                const completed = GameState.streak.days[i];
-                return `
-                    <div class="achievement ${completed ? 'earned' : ''}">
-                        <div class="achievement-icon ${completed ? '' : 'locked'}">
-                            ${completed === 'freeze' ? '❄️' : '🔥'}
-                        </div>
-                        <div class="achievement-name">${day}</div>
-                    </div>
-                `;
-            }).join('');
-        }
-    },
-    
-    updateStats() {
-        const bar = document.getElementById('statsBar');
-        if (!bar) return;
-        
-        bar.innerHTML = `
-            <div class="stat-pill tooltip">
-                <span class="stat-icon">⭐</span>
-                <span class="stat-value">${GameState.totalPoints}</span>
-                <span class="tooltiptext">Total Points Earned</span>
-            </div>
-            <div class="stat-pill tooltip">
-                <span class="stat-icon">🎯</span>
-                <span class="stat-value">Lv ${GameState.level}</span>
-                <span class="tooltiptext">Current Level</span>
-            </div>
-            <div class="stat-pill tooltip">
-                <span class="stat-icon">🔥</span>
-                <span class="stat-value">${StreakManager.getCurrent()}</span>
-                <span class="tooltiptext">Day Streak</span>
-            </div>
-        `;
-    },
-    
-    updateLevelProgress() {
-        const container = document.getElementById('levelProgress');
-        if (!container) return;
-        
-        const currentLevelXP = GameState.totalXP % CONFIG.LEVELS.xpPerLevel;
-        const progress = (currentLevelXP / CONFIG.LEVELS.xpPerLevel) * 100;
-        
-        container.innerHTML = `
-            <div class="level-header">
-                <span class="level-title">Level ${GameState.level}</span>
-                <span class="level-xp">${currentLevelXP}/${CONFIG.LEVELS.xpPerLevel} XP</span>
-            </div>
-            <div class="level-bar">
-                <div class="level-fill" style="width: ${progress}%"></div>
-            </div>
-        `;
-    },
-    
-    updateStreakTracker() {
-        const container = document.getElementById('streakDays');
-        if (!container) return;
-        
-        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        const today = new Date().getDay();
-        // FIXED: Adjust day index (JS Sunday=0, array Monday=0)
-        const adjustedToday = today === 0 ? 6 : today - 1;
-        
-        container.innerHTML = days.map((day, i) => {
-            const completed = GameState.streak.days[i];
-            const isToday = i === adjustedToday;
-            const isFreeze = completed === 'freeze';
-            
-            return `
-                <div class="streak-day ${completed ? 'completed' : ''} ${isToday ? 'active' : ''} ${isFreeze ? 'freeze' : ''}">
-                    <span class="streak-icon ${completed ? '' : 'missed'}">
-                        ${isFreeze ? '❄️' : '🔥'}
-                    </span>
-                    <div class="streak-label">${day}</div>
-                </div>
-            `;
-        }).join('');
-        
-        // Update freeze badge
-        const badge = document.getElementById('freezeBadge');
-        const freezeCount = document.getElementById('freezeCount');
-        
-        if (GameState.streak.freezes > 0) {
-            badge.classList.remove('hidden');
-            freezeCount.textContent = GameState.streak.freezes;
-        } else {
-            badge.classList.add('hidden');
-        }
-    },
-    
-    showAnimation(type, text) {
-        const div = document.createElement('div');
-        div.className = type === 'points' ? 'points-popup' : 'xp-gain';
-        div.textContent = text;
-        document.body.appendChild(div);
-        
-        setTimeout(() => div.remove(), type === 'points' ? 1000 : 1500);
-    }
-};
 
-// ============================================
-// GAME CONTROLLER
-// ============================================
-const Game = {
-    async init() {
-        console.log('🎮 MindSprint initializing...');
-        
-        // Initialize components
-        GameState.init();
-        await QuestionEngine.init();
-        
-        // Update UI
-        UI.updateStats();
-        UI.updateLevelProgress();
-        UI.updateStreakTracker();
-        
-        // Check if already completed today
-        if (DailyManager.isCompletedToday()) {
-            const data = DailyManager.getTodayData();
-            UI.render('alreadyCompleted', data);
-        } else {
-            UI.render('topicSelection');
+            setTimeout(() => showResult(isCorrect), 1000);
         }
-        
-        console.log('✅ MindSprint ready!');
-    },
-    
-    startSession(topic) {
-        GameState.topic = topic;
-        GameState.questions = QuestionEngine.generateSession(topic);
-        GameState.currentIndex = 0;
-        GameState.sessionPoints = 0;
-        GameState.correctCount = 0;
-        GameState.answerTimes = [];
-        
-        this.loadQuestion();
-    },
-    
-    loadQuestion() {
-        const question = GameState.questions[GameState.currentIndex];
-        
-        UI.render('question', {
-            question,
-            index: GameState.currentIndex,
-            total: CONFIG.QUESTIONS_PER_SESSION
-        });
-    },
-    
-    checkAnswer(selectedIndex, timeSpent) {
-        Timer.stop();
-        
-        const question = GameState.questions[GameState.currentIndex];
-        const isCorrect = selectedIndex === question.correctIndex;
-        
-        // Visual feedback
-        const choices = document.querySelectorAll('.choice');
-        choices.forEach((choice, i) => {
-            if (i === question.correctIndex) {
-                choice.classList.add('correct');
-            } else if (i === selectedIndex && !isCorrect) {
-                choice.classList.add('incorrect');
+
+        function showResult(isCorrect) {
+            document.getElementById('questionView').classList.add('hidden');
+            document.getElementById('resultView').classList.remove('hidden');
+            
+            const resultIcon = document.getElementById('resultIcon');
+            const resultTitle = document.getElementById('resultTitle');
+            const explanation = document.getElementById('explanation');
+            
+            if (isCorrect) {
+                correctCount++;
+                resultIcon.textContent = '🎉';
+                resultTitle.textContent = 'Brilliant!';
+                resultTitle.className = 'result-title success';
+            } else {
+                resultIcon.textContent = '💡';
+                resultTitle.textContent = 'Not Quite!';
+                resultTitle.className = 'result-title failure';
             }
-        });
-        
-        // Calculate rewards
-        let earnedPoints = 0;
-        let earnedXP = 0;
-        
-        if (isCorrect) {
-            GameState.correctCount++;
-            earnedPoints = Scoring.calculatePoints(question, timeSpent);
-            earnedXP = CONFIG.XP.correct;
             
-            GameState.sessionPoints += earnedPoints;
-            GameState.totalPoints += earnedPoints;
+            const question = dailyQuestions[currentQuestionIndex];
+            explanation.innerHTML = `<strong>Did you know?</strong>${question.explanation}`;
             
-            // Show animations
-            UI.showAnimation('points', `+${earnedPoints}`);
+            document.getElementById('currentStreak').textContent = streak;
+            document.getElementById('correctAnswers').textContent = `${correctCount}/${currentQuestionIndex + 1}`;
             
-            // Vibration feedback
-            if (window.navigator.vibrate) {
-                navigator.vibrate(50);
+            const nextButton = document.getElementById('nextButton');
+            if (currentQuestionIndex >= QUESTIONS_PER_DAY - 1) {
+                nextButton.textContent = 'Complete Challenge';
+                nextButton.onclick = completeChallenge;
+            } else {
+                nextButton.textContent = 'Next Question';
+                nextButton.onclick = nextQuestion;
             }
-        } else {
-            earnedXP = CONFIG.XP.incorrect;
-        }
-        
-        // Update topic stats
-        const stats = GameState.topicStats[GameState.topic];
-        stats.total++;
-        if (isCorrect) stats.correct++;
-        stats.played = stats.total;
-        
-        GameState.answerTimes.push(timeSpent);
-        GameState.addXP(earnedXP);
-        
-        // Show result
-        setTimeout(() => {
-            UI.render('result', {
-                isCorrect,
-                question,
-                earnedPoints,
-                earnedXP
-            });
-        }, 800);
-    },
-    
-    handleTimeout() {
-        const choices = document.querySelectorAll('.choice');
-        choices.forEach(c => c.disabled = true);
-        
-        setTimeout(() => {
-            this.checkAnswer(-1, CONFIG.TIMER[GameState.questions[GameState.currentIndex].difficulty]);
-        }, 500);
-    },
-    
-    nextQuestion() {
-        GameState.currentIndex++;
-        this.loadQuestion();
-    },
-    
-    showCompletion() {
-        const accuracy = Math.round((GameState.correctCount / CONFIG.QUESTIONS_PER_SESSION) * 100);
-        
-        // Bonus XP
-        let bonusXP = 0;
-        
-        // Perfect round
-        if (accuracy === 100) {
-            bonusXP += CONFIG.XP.perfectRound;
-        }
-        
-        // Streak bonus
-        const streak = StreakManager.getCurrent();
-        if (CONFIG.XP.streak[streak]) {
-            bonusXP += CONFIG.XP.streak[streak];
-        }
-        
-        if (bonusXP > 0) {
-            GameState.addXP(bonusXP);
-            UI.showAnimation('xp', `+${bonusXP} Bonus XP!`);
-        }
-        
-        // Save completion
-        DailyManager.saveCompletion({
-            points: GameState.sessionPoints,
-            accuracy: accuracy + '%',
-            correct: GameState.correctCount,
-            total: CONFIG.QUESTIONS_PER_SESSION
-        });
-        
-        // Update streak
-        StreakManager.update(true);
-        UI.updateStreakTracker();
-        
-        // Save state
-        GameState.save();
-        
-        // Show completion screen
-        UI.render('completion', {
-            points: GameState.sessionPoints,
-            accuracy,
-            xp: bonusXP
-        });
-    },
-    
-    shareResults() {
-        const accuracy = Math.round((GameState.correctCount / CONFIG.QUESTIONS_PER_SESSION) * 100);
-        const streak = StreakManager.getCurrent();
-        
-        const text = `🔥 MindSprint Day ${streak}!
-
-📊 ${GameState.correctCount}/${CONFIG.QUESTIONS_PER_SESSION} (${accuracy}%)
-⭐ +${GameState.sessionPoints} points
-🎯 Level ${GameState.level}
-
-Daily knowledge challenges!`;
-        
-        if (navigator.share) {
-            navigator.share({ title: 'MindSprint', text });
-        } else {
-            navigator.clipboard.writeText(text).then(() => {
-                showToast('Results copied! 🎉');
-            });
         }
 
-        // -------------------------
-        // TOAST FUNCTION
-        // -------------------------
-        function showToast(message, duration = 2000) {
-            const toast = document.createElement('div');
-            toast.className = 'toast-notification';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-
-            // Animate in
-            setTimeout(() => toast.classList.add('visible'), 10);
-
-            // Remove after duration
-            setTimeout(() => {
-                toast.classList.remove('visible');
-                setTimeout(() => toast.remove(), 300);
-            }, duration);
+        function nextQuestion() {
+            currentQuestionIndex++;
+            document.getElementById('questionView').classList.remove('hidden');
+            document.getElementById('resultView').classList.add('hidden');
+            loadQuestion();
         }
 
-    }
-};
+        function completeChallenge() {
+            const percentage = Math.round((correctCount / QUESTIONS_PER_DAY) * 100);
+            const emoji = percentage >= 100 ? '🏆' : percentage >= 66 ? '🌟' : '💪';
+            
+            saveGameState(true);
+            
+            alert(`${emoji} Challenge Complete!\n\nYou got ${correctCount} out of ${QUESTIONS_PER_DAY} correct (${percentage}%)\n\nStreak: ${streak} days 🔥\n\nCome back tomorrow for a new challenge!`);
+            
+            // Reset to topic selection
+            currentTopic = null;
+            currentQuestionIndex = 0;
+            correctCount = 0;
+            document.getElementById('resultView').classList.add('hidden');
+            document.getElementById('topicView').classList.remove('hidden');
+        }
 
-// ============================================
-// FALLBACK QUESTIONS (if fetch fails)
-// ============================================
-const FALLBACK_QUESTIONS = {
-    tech: [
-        { question: "What does 'API' stand for?", choices: ["Application Programming Interface", "Advanced Program Integration", "Automated Process Interface"], correctIndex: 0, difficulty: "easy", points: 10, explanation: "API stands for Application Programming Interface." },
-        { question: "What does AI hallucination mean?", choices: ["Random output", "Confidently incorrect info", "Stops responding"], correctIndex: 1, difficulty: "easy", points: 10, explanation: "AI hallucination is when models confidently produce false information." },
-        { question: "What is blockchain's main purpose?", choices: ["Speed transactions", "Decentralized records", "Reduce energy"], correctIndex: 1, difficulty: "medium", points: 20, explanation: "Blockchain creates tamper-proof, decentralized records." },
-        { question: "What is Deep Learning?", choices: ["Decision Trees", "Neural Networks", "Linear Regression"], correctIndex: 1, difficulty: "medium", points: 20, explanation: "Deep Learning uses multi-layer neural networks inspired by the brain." },
-        { question: "What is Functional Programming?", choices: ["Object-Oriented", "Mathematical Functions", "Procedural"], correctIndex: 1, difficulty: "hard", points: 30, explanation: "Functional Programming treats computation as mathematical function evaluation." }
-    ],
-    behavior: [
-        { question: "What is Confirmation Bias?", choices: ["Confirmation Bias", "Availability Heuristic", "Dunning-Kruger"], correctIndex: 0, difficulty: "easy", points: 10, explanation: "Confirmation Bias is seeking information that confirms existing beliefs." },
-        { question: "What is Spotlight Effect?", choices: ["Spotlight Effect", "Attribution Error", "Social Proof"], correctIndex: 0, difficulty: "easy", points: 10, explanation: "Spotlight Effect is overestimating how much others notice us." },
-        { question: "What is Dopamine?", choices: ["Serotonin", "Dopamine", "Cortisol"], correctIndex: 1, difficulty: "medium", points: 20, explanation: "Dopamine is linked to reward, motivation, and pleasure." },
-        { question: "What is Foot-in-the-Door?", choices: ["Anchoring", "Foot-in-the-Door", "Dissonance"], correctIndex: 1, difficulty: "medium", points: 20, explanation: "Small requests lead to larger compliance." },
-        { question: "What is Risky Shift?", choices: ["Groupthink", "Risky Shift", "Social Loafing"], correctIndex: 1, difficulty: "hard", points: 30, explanation: "Groups make riskier decisions than individuals." }
-    ],
-    career: [
-        { question: "What is the 80/20 rule?", choices: ["80% effort = 20% results", "80% results from 20% effort", "Work 80 hours"], correctIndex: 1, difficulty: "easy", points: 10, explanation: "Pareto Principle: 80% outcomes from 20% causes." },
-        { question: "Most valuable AI-era skill?", choices: ["Memorization", "Critical Thinking", "Speed typing"], correctIndex: 1, difficulty: "easy", points: 10, explanation: "Critical thinking matters most as AI automates routine tasks." },
-        { question: "Best networking approach?", choices: ["Collect contacts", "Genuine relationships", "Only executives"], correctIndex: 1, difficulty: "medium", points: 20, explanation: "Quality relationships beat quantity in networking." },
-        { question: "How often update skills?", choices: ["Every 5 years", "Continuously", "Only when changing jobs"], correctIndex: 1, difficulty: "medium", points: 20, explanation: "Continuous learning keeps you relevant." },
-        { question: "What predicts burnout?", choices: ["Long hours", "Lack of control", "Difficult tasks"], correctIndex: 1, difficulty: "hard", points: 30, explanation: "Burnout links to lack of autonomy." }
-    ],
-    science: [
-        { question: "Essential element for life?", choices: ["Silicon", "Carbon", "Nitrogen"], correctIndex: 1, difficulty: "easy", points: 10, explanation: "Carbon forms stable bonds for complex molecules." },
-        { question: "What keeps planets in orbit?", choices: ["Electromagnetic", "Gravity", "Nuclear"], correctIndex: 1, difficulty: "easy", points: 10, explanation: "Gravity attracts objects with mass." },
-        { question: "DNA shared with chimps?", choices: ["50%", "75%", "98-99%"], correctIndex: 2, difficulty: "medium", points: 20, explanation: "Humans share 98-99% DNA with chimpanzees." },
-        { question: "Speed of light?", choices: ["300,000 km/s", "150,000 km/s", "500,000 km/s"], correctIndex: 0, difficulty: "medium", points: 20, explanation: "Light travels at ~300,000 km/s in vacuum." },
-        { question: "Why is sky blue?", choices: ["Ocean reflection", "Rayleigh Scattering", "Heating"], correctIndex: 1, difficulty: "hard", points: 30, explanation: "Rayleigh Scattering makes blue wavelengths scatter more." }
-    ]
-};
-
-// ============================================
-// INITIALIZE APP
-// ============================================
-Game.init();
+        // Initialize
+        if (loadGameState()) {
+            // Game is ready to play
+        }
     </script>
 </body>
 </html>
