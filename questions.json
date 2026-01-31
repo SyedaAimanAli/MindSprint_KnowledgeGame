@@ -1,0 +1,638 @@
+{
+  "tech": [
+    
+  {
+    "question": "What does HTTP stand for?",
+    "choices": ["HyperText Transfer Protocol", "High Transfer Text Process", "Hyperlink Transmission Program"],
+    "correctIndex": 0,
+    "difficulty": "easy",
+    "points": 10,
+    "explanation": "HTTP is the protocol used for transferring web pages over the internet."
+  },
+  {
+    "question": "Which concept allows AI models to reuse knowledge from one task for another?",
+    "choices": ["Overfitting", "Transfer Learning", "Normalization"],
+    "correctIndex": 1,
+    "difficulty": "medium",
+    "points": 20,
+    "explanation": "Transfer Learning enables models to apply knowledge learned from one task to a related task."
+  },
+  {
+    "question": "What problem does overfitting describe in machine learning?",
+    "choices": ["Model too simple", "Model memorizes training data", "Model trains too slowly"],
+    "correctIndex": 1,
+    "difficulty": "medium",
+    "points": 20,
+    "explanation": "Overfitting happens when a model performs well on training data but poorly on new data."
+  },
+  {
+    "question": "Why are distributed systems hard to design?",
+    "choices": ["High cost", "Network failures and consistency trade-offs", "Slow hardware"],
+    "correctIndex": 1,
+    "difficulty": "hard",
+    "points": 30,
+    "explanation": "Distributed systems must handle failures, latency, and consistency trade-offs."
+  },
+    {
+      "question": "What does 'API' stand for in software development?",
+      "choices": ["Application Programming Interface", "Advanced Programming Integration", "Automated Process Interface"],
+      "correctIndex": 0,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "API (Application Programming Interface) is a set of protocols and tools that allows different software applications to communicate with each other."
+    },
+    {
+      "question": "What does it mean when an AI model 'hallucinates'?",
+      "choices": ["It generates random output", "It confidently produces incorrect information", "It stops responding"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "AI hallucination refers to situations where a model generates false or misleading information while sounding confident."
+    },
+    {
+      "question": "What task are modern AI models currently best at?",
+      "choices": ["Abstract reasoning", "Pattern recognition", "Moral decision-making"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "AI excels at identifying patterns in large datasets."
+    },
+    {
+      "question": "Which machine learning technique mimics the human brain's neural network structure?",
+      "choices": ["Decision Trees", "Deep Learning", "Linear Regression"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Deep Learning uses artificial neural networks inspired by the human brain."
+    },
+    {
+      "question": "Which AI concept allows models to improve performance through rewards and penalties?",
+      "choices": ["Supervised Learning", "Reinforcement Learning", "Transfer Learning"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Reinforcement Learning improves performance via trial and error using rewards."
+    },
+    {
+      "question": "What is the primary purpose of blockchain technology?",
+      "choices": ["Speed up transactions", "Create decentralized, tamper-proof records", "Reduce energy consumption"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Blockchain ensures transparency and security through decentralization."
+    },
+    {
+      "question": "What primarily limits the quality of AI outputs?",
+      "choices": ["Processing speed", "Training data quality", "User interface"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "AI output quality depends heavily on training data."
+    },
+    {
+      "question": "Why is fine-tuning used in AI models?",
+      "choices": ["Reduce hardware usage", "Specialize behavior for tasks", "Add memory"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Fine-tuning adapts models to specific domains."
+    },
+    {
+      "question": "Which programming paradigm treats computation as mathematical functions?",
+      "choices": ["Object-Oriented", "Functional Programming", "Procedural"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Functional programming emphasizes pure functions and immutability."
+    },
+    {
+      "question": "Which concern is most discussed about AI adoption?",
+      "choices": ["Hardware shortages", "Job displacement", "Internet speed"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Automation replacing jobs is a major concern."
+    },
+    {
+      "question": "What does CAP theorem state you cannot have all three of?",
+      "choices": ["Consistency, Availability, Partition tolerance", "Cache, API, Performance", "Code, Architecture, Platform"],
+      "correctIndex": 0,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Distributed systems can only guarantee two of the three CAP properties."
+    },
+    {
+      "question": "What is the main challenge of training large AI models?",
+      "choices": ["Data labeling", "Computational resources", "User adoption"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Training large models requires significant computational power."
+    },
+    {
+        "question": "What does an API primarily allow different software systems to do?",
+        "choices": ["Share user interfaces", "Communicate and exchange data", "Run on the same operating system"],
+        "correctIndex": 1,
+        "difficulty": "easy",
+        "points": 10,
+        "explanation": "An API allows different software systems to communicate and exchange data using defined rules."
+    },
+    {
+        "question": "Which data structure works on a First-In, First-Out (FIFO) principle?",
+        "choices": ["Stack", "Queue", "Tree"],
+        "correctIndex": 1,
+        "difficulty": "easy",
+        "points": 10,
+        "explanation": "A queue follows FIFO, meaning the first element added is the first one removed."
+    },
+    {
+        "question": "What is the main purpose of version control systems like Git?",
+        "choices": ["To compile code faster", "To track and manage changes in code", "To host websites"],
+        "correctIndex": 1,
+        "difficulty": "medium",
+        "points": 20,
+        "explanation": "Git tracks changes, supports collaboration, and allows reverting to previous code versions."
+    },
+    {
+        "question": "Which concept ensures that a program can continue running even if part of it fails?",
+        "choices": ["Scalability", "Fault tolerance", "Virtualization"],
+        "correctIndex": 1,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Fault tolerance allows systems to continue operating even when some components fail."
+    }
+  ],
+
+  "behavior": [
+      {
+    "question": "Why do people remember unfinished tasks better than completed ones?",
+    "choices": ["Recency effect", "Zeigarnik effect", "Anchoring bias"],
+    "correctIndex": 1,
+    "difficulty": "easy",
+    "points": 10,
+    "explanation": "The Zeigarnik effect explains why incomplete tasks stay active in memory."
+  },
+  {
+    "question": "What bias makes losses feel more painful than gains feel good?",
+    "choices": ["Optimism bias", "Loss aversion", "Hindsight bias"],
+    "correctIndex": 1,
+    "difficulty": "easy",
+    "points": 10,
+    "explanation": "Loss aversion causes people to fear losses more than they value equivalent gains."
+  },
+  {
+    "question": "Why do people stick with bad decisions they already invested in?",
+    "choices": ["Sunk cost fallacy", "Availability bias", "Halo effect"],
+    "correctIndex": 0,
+    "difficulty": "medium",
+    "points": 20,
+    "explanation": "The sunk cost fallacy makes people continue because of past investments."
+  },
+  {
+    "question": "Why does multitasking reduce productivity?",
+    "choices": ["Lack of motivation", "Cognitive switching cost", "Poor memory"],
+    "correctIndex": 1,
+    "difficulty": "hard",
+    "points": 30,
+    "explanation": "Switching tasks frequently increases mental load and reduces efficiency."
+  },
+    {
+      "question": "Which cognitive bias causes us to seek confirming information?",
+      "choices": ["Confirmation Bias", "Availability Heuristic", "Dunning-Kruger Effect"],
+      "correctIndex": 0,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Confirmation Bias reinforces existing beliefs."
+    },
+    {
+      "question": "What describes overestimating how much others notice us?",
+      "choices": ["Spotlight Effect", "Fundamental Attribution Error", "Social Proof"],
+      "correctIndex": 0,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "People believe they are noticed more than they really are."
+    },
+    {
+      "question": "Why do people value owned items more?",
+      "choices": ["Confirmation bias", "Endowment effect", "Loss aversion"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Ownership increases perceived value."
+    },
+    {
+      "question": "What helps habits stick long-term?",
+      "choices": ["Motivation", "Willpower", "Consistency"],
+      "correctIndex": 2,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Repetition reinforces habits."
+    },
+    {
+      "question": "Which principle explains agreeing to bigger requests later?",
+      "choices": ["Anchoring", "Foot-in-the-Door", "Cognitive Dissonance"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Small commitments lead to larger ones."
+    },
+    {
+      "question": "Which neurotransmitter drives motivation and reward?",
+      "choices": ["Serotonin", "Dopamine", "Cortisol"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Dopamine drives reward-based behavior."
+    },
+    {
+      "question": "Why do people conform to group opinions?",
+      "choices": ["Anchoring bias", "Conformity pressure", "Availability heuristic"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "People want social acceptance."
+    },
+    {
+      "question": "What causes decision fatigue?",
+      "choices": ["Stress", "Time pressure", "Too many choices"],
+      "correctIndex": 2,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Excessive decisions drain mental energy."
+    },
+    {
+      "question": "Why do groups take more risks?",
+      "choices": ["Groupthink", "Risky Shift", "Social Loafing"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Shared responsibility increases risk-taking."
+    },
+    {
+      "question": "Why do deadlines boost productivity?",
+      "choices": ["Fear", "Parkinson's Law", "Rewards"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Work expands to fill available time."
+    },
+    {
+      "question": "What is the main cause of procrastination?",
+      "choices": ["Laziness", "Fear of failure", "Poor time management"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Fear of failure leads to avoidance behavior."
+    },
+    {
+      "question": "Why do people follow social norms?",
+      "choices": ["Avoid punishment", "Seek approval", "Conserve energy"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "People conform to gain social acceptance."
+    },
+    {
+      "question": "What effect describes improved performance under observation?",
+      "choices": ["Hawthorne Effect", "Placebo Effect", "Barnum Effect"],
+      "correctIndex": 0,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Being observed can enhance performance."
+    },
+    {
+        "question": "Why are humans bad at predicting exponential growth?",
+        "choices": ["Overconfidence", "Linear intuition", "Poor memory"],
+        "correctIndex": 1,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Humans intuitively think linearly, underestimating exponential growth."
+    }
+  ],
+
+  "career": [
+
+  {
+    "question": "What is the main benefit of having a personal brand?",
+    "choices": ["Higher salary", "Visibility and trust", "More free time"],
+    "correctIndex": 1,
+    "difficulty": "easy",
+    "points": 10,
+    "explanation": "A personal brand builds credibility and makes opportunities come to you."
+  },
+  {
+    "question": "What is the best way to demonstrate skills to employers?",
+    "choices": ["Certifications", "Projects and real work", "Job titles"],
+    "correctIndex": 1,
+    "difficulty": "easy",
+    "points": 10,
+    "explanation": "Projects show practical ability better than claims or titles."
+  },
+  {
+    "question": "Why is feedback important for career growth?",
+    "choices": ["Boosts confidence", "Identifies blind spots", "Improves salary"],
+    "correctIndex": 1,
+    "difficulty": "medium",
+    "points": 20,
+    "explanation": "Feedback reveals areas for improvement you may not see yourself."
+  },
+  {
+    "question": "What separates high performers from average ones long-term?",
+    "choices": ["Talent", "Deliberate practice", "Luck"],
+    "correctIndex": 1,
+    "difficulty": "hard",
+    "points": 30,
+    "explanation": "Deliberate practice focuses on continuous improvement with feedback."
+  },
+    {
+      "question": "What does the 80/20 rule suggest?",
+      "choices": ["80% effort gives 20% results", "80% results come from 20% effort", "Work 80 hours"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Focus on high-impact tasks."
+    },
+    {
+      "question": "Most valuable skill in the AI era?",
+      "choices": ["Memorization", "Critical Thinking & Adaptability", "Speed typing"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "AI increases demand for thinking skills."
+    },
+    {
+      "question": "What is imposter syndrome?",
+      "choices": ["Pretending skills", "Feeling like a fraud", "Copying work"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Doubting achievements despite success."
+    },
+    {
+      "question": "Which skill boosts long-term growth?",
+      "choices": ["Technical depth", "Communication", "Certifications"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Communication amplifies impact."
+    },
+    {
+      "question": "Best networking approach?",
+      "choices": ["Collect contacts", "Build genuine relationships", "Only seniors"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Quality beats quantity."
+    },
+    {
+      "question": "How often should skills be updated?",
+      "choices": ["Every 5 years", "Continuously", "Only when switching jobs"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Continuous learning keeps you relevant."
+    },
+    {
+      "question": "What predicts promotions best?",
+      "choices": ["Hard work", "Visibility of impact", "Experience"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Impact must be seen."
+    },
+    {
+      "question": "What causes burnout most?",
+      "choices": ["Long hours", "Lack of control", "Hard tasks"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Autonomy matters more than workload."
+    },
+    {
+      "question": "What makes a resume stand out?",
+      "choices": ["Design", "Buzzwords", "Measurable results"],
+      "correctIndex": 2,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Numbers show impact."
+    },
+    {
+      "question": "Why is emotional intelligence key for leaders?",
+      "choices": ["Better decisions", "Stronger teams", "Faster work"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "EI builds trust and collaboration."
+    },
+    {
+      "question": "What is a growth mindset?",
+      "choices": ["Fixed skills", "Belief in development", "Natural talent"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Growth mindset embraces learning and effort."
+    },
+    {
+      "question": "Best way to handle failure?",
+      "choices": ["Avoid risks", "Learn and adapt", "Blame others"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Failure is a learning opportunity."
+    },
+    {
+      "question": "What is the most effective way to prepare for interviews?",
+      "choices": ["Memorize answers", "Mock interviews and research", "Dress well"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Practice and knowledge build confidence."
+    },
+    {
+      "question": "Why is adaptability crucial in today's careers?",
+      "choices": ["Job security", "Rapid change in industries", "Higher salaries"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Industries evolve quickly; adaptability ensures relevance."
+    },
+    {
+        "question": "What makes a resume stand out?",
+        "choices": ["Design", "Buzzwords", "Measurable results"],
+        "correctIndex": 2,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Numbers show impact."
+        }
+  ],
+
+  "science": [
+    {
+      "question": "Which element is essential for life?",
+      "choices": ["Silicon", "Carbon", "Nitrogen"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Carbon enables complex molecules."
+    },
+    {
+      "question": "Which force keeps planets in orbit?",
+      "choices": ["Electromagnetic", "Gravity", "Nuclear"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Gravity attracts mass."
+    },
+    {
+      "question": "Why does the sky appear blue?",
+      "choices": ["Ocean reflection", "Rayleigh Scattering", "Atmospheric heating"],
+      "correctIndex": 1,
+      "difficulty": "hard",
+      "points": 30,
+      "explanation": "Blue wavelengths scatter more."
+    },
+    {
+      "question": "What percentage of DNA do we share with chimpanzees?",
+      "choices": ["50%", "75%", "98-99%"],
+      "correctIndex": 2,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Humans share ~98–99% DNA."
+    },
+    {
+      "question": "What is the speed of light?",
+      "choices": ["300,000 km/s", "150,000 km/s", "500,000 km/s"],
+      "correctIndex": 0,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "It is the universal speed limit."
+    },
+    {
+      "question": "What causes seasons on Earth?",
+      "choices": ["Distance from Sun", "Axial tilt", "Solar flares"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Tilt changes sunlight angle."
+    },
+    {
+      "question": "What is the powerhouse of the cell?",
+      "choices": ["Nucleus", "Mitochondria", "Ribosome"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Mitochondria produce energy."
+    },
+    {
+      "question": "What is H2O?",
+      "choices": ["Oxygen", "Hydrogen Peroxide", "Water"],
+      "correctIndex": 2,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "H2O is the chemical formula for water."
+    },
+    {
+      "question": "What planet is known as the Red Planet?",
+      "choices": ["Venus", "Mars", "Jupiter"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Mars appears red due to iron oxide."
+    },
+    {
+      "question": "What is the main gas in Earth's atmosphere?",
+      "choices": ["Oxygen", "Nitrogen", "Carbon Dioxide"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Nitrogen makes up about 78% of the atmosphere."
+    },  {
+    "question": "Why does ice float on water?",
+    "choices": ["It is lighter", "Lower density when frozen", "Trapped air"],
+    "correctIndex": 1,
+    "difficulty": "easy",
+    "points": 10,
+    "explanation": "Water expands when frozen, making ice less dense than liquid water."
+  },
+  {
+    "question": "What part of the brain is responsible for decision-making?",
+    "choices": ["Cerebellum", "Prefrontal cortex", "Amygdala"],
+    "correctIndex": 1,
+    "difficulty": "medium",
+    "points": 20,
+    "explanation": "The prefrontal cortex controls planning and decision-making."
+  },
+  {
+    "question": "Why does time feel faster as we age?",
+    "choices": ["Memory compression", "Less novelty", "Faster metabolism"],
+    "correctIndex": 1,
+    "difficulty": "medium",
+    "points": 20,
+    "explanation": "Routine reduces novel memories, making time feel faster."
+  },
+    {
+        "question": "What effect describes improved performance under observation?",
+        "choices": ["Hawthorne Effect", "Placebo Effect", "Barnum Effect"],
+        "correctIndex": 0,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Being observed can enhance performance."
+    },
+    {
+        "question": "What is the main cause of antibiotic resistance?",
+        "choices": ["Overuse of antibiotics", "Poor hygiene", "Genetic mutations"],
+        "correctIndex": 0,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Overuse accelerates resistant strains."
+    },
+    {
+      "question": "What is the most abundant element in the universe?",
+      "choices": ["Oxygen", "Hydrogen", "Helium"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Hydrogen makes up about 75% of the universe's elemental mass."
+    },
+    {
+      "question": "What phenomenon explains why we see different constellations in different seasons?",
+      "choices": ["Earth's rotation", "Earth's revolution around the Sun", "Precession of the equinoxes"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "As Earth orbits the Sun, our nighttime view of the stars changes."
+    },
+    {
+      "question": "What is the main function of red blood cells?",
+      "choices": ["Fight infections", "Carry oxygen", "Clot blood"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Red blood cells transport oxygen from the lungs to body tissues."
+    },
+    {
+      "question": "What is the chemical symbol for gold?",
+      "choices": ["Au", "Ag", "Gd"],
+      "correctIndex": 0,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "The symbol 'Au' comes from the Latin word 'Aurum' meaning gold."
+    },
+    {
+      "question": "What is the process by which plants make their food?",
+      "choices": ["Respiration", "Photosynthesis", "Transpiration"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Photosynthesis converts sunlight into chemical energy."
+    },
+    {
+        "question": "Why are humans bad at predicting exponential growth?",
+        "choices": ["Overconfidence", "Linear intuition", "Poor memory"],
+        "correctIndex": 1,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Humans intuitively think linearly, underestimating exponential growth."
+    }  
+  ]
+}
