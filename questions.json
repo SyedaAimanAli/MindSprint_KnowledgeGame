@@ -160,6 +160,70 @@
         "difficulty": "hard",
         "points": 30,
         "explanation": "Fault tolerance allows systems to continue operating even when some components fail."
+    },
+    {
+        "question": "What is 'latency' in computer networks?",
+        "choices": ["Amount of data transferred", "Delay before data transfer begins", "Number of connected devices"],
+        "correctIndex": 1,
+        "difficulty": "medium",
+        "points": 20,
+        "explanation": "Latency refers to the delay between a request and the start of data transfer."
+    },
+    {
+        "question": "What is 'normalization' in database design?",
+        "choices": ["Backing up data", "Organizing data to reduce redundancy", "Encrypting data"],
+        "correctIndex": 1,
+        "difficulty": "medium",
+        "points": 20,
+        "explanation": "Normalization structures a database to minimize redundancy and improve data integrity."
+    },
+    {
+        "question": "What is 'containerization' in software development?",
+        "choices": ["Packaging software with dependencies", "Writing code in multiple languages", "Using cloud services"],
+        "correctIndex": 0,
+        "difficulty": "medium",
+        "points": 20,
+        "explanation": "Containerization packages software and its dependencies for consistent deployment."
+    },
+    {
+        "question": "What is 'edge computing'?",
+        "choices": ["Processing data near its source", "Using cloud servers", "Storing data on local drives"],
+        "correctIndex": 0,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Edge computing processes data closer to where it is generated to reduce latency."
+    },
+    {
+        "question": "What is 'sharding' in database management?",
+        "choices": ["Backing up data", "Splitting a database into smaller parts", "Encrypting data"],
+        "correctIndex": 1,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Sharding divides a database into smaller, more manageable pieces for performance and scalability."
+    },
+    {
+        "question": "What is 'caching' in computer systems?",
+        "choices": ["Storing frequently accessed data for quick retrieval", "Backing up data", "Encrypting data"],
+        "correctIndex": 0,
+        "difficulty": "medium",
+        "points": 20,
+        "explanation": "Caching stores frequently accessed data in a temporary storage area for faster access."
+    },
+    {
+        "question": "What is 'load balancing' in network management?",
+        "choices": ["Distributing network traffic across multiple servers", "Backing up data", "Encrypting data"],
+        "correctIndex": 0,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Load balancing distributes incoming network traffic to ensure no single server becomes overwhelmed."
+    },
+    {
+        "question": "What is 'microservices architecture'?",
+        "choices": ["Building applications as a collection of small, independent services", "Using monolithic applications", "Storing data in a single database"],
+        "correctIndex": 0,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Microservices architecture breaks down applications into smaller, independent services that can be developed and deployed separately."
     }
   ],
 
@@ -307,6 +371,38 @@
         "difficulty": "hard",
         "points": 30,
         "explanation": "Humans intuitively think linearly, underestimating exponential growth."
+    },
+    {
+        "question": "What is the Dunning-Kruger effect?",
+        "choices": ["Overestimating others' abilities", "Underestimating own abilities", "Overestimating own abilities when unskilled"],
+        "correctIndex": 2,
+        "difficulty": "medium",
+        "points": 20,
+        "explanation": "Unskilled individuals overestimate their competence."
+    },
+    {
+        "question": "What is the primary reason for the 'bystander effect'?",
+        "choices": ["Fear of getting involved", "Diffusion of responsibility", "Lack of awareness"],
+        "correctIndex": 1,
+        "difficulty": "medium",
+        "points": 20,
+        "explanation": "People assume others will take action, reducing their own sense of responsibility."
+    },
+    {
+        "question": "What psychological principle explains why people are more likely to help others when they are alone rather than in a group?",
+        "choices": ["Social Loafing", "Bystander Effect", "Groupthink"],
+        "correctIndex": 1,
+        "difficulty": "medium",
+        "points": 20,
+        "explanation": "The bystander effect occurs because individuals feel less personal responsibility to act when others are present."
+    },
+    {
+        "question": "What is 'cognitive dissonance'?",
+        "choices": ["The discomfort from holding conflicting beliefs", "The ability to multitask effectively", "The tendency to remember emotional events better"],
+        "correctIndex": 0,
+        "difficulty": "medium",
+        "points": 20,
+        "explanation": "Cognitive dissonance is the mental discomfort experienced when holding two or more contradictory beliefs or values."
     }
   ],
 
@@ -463,7 +559,31 @@
         "difficulty": "hard",
         "points": 30,
         "explanation": "Numbers show impact."
-        }
+    },
+    {
+        "question": "What is the best way to ask for a raise?",
+        "choices": ["Threaten to leave", "Showcase achievements and market value", "Demand it"],
+        "correctIndex": 1,
+        "difficulty": "medium",
+        "points": 20,
+        "explanation": "Demonstrating your value makes a stronger case."
+    },
+    {
+        "question": "What is the most effective way to prepare for interviews?",
+        "choices": ["Memorize answers", "Mock interviews and research", "Dress well"],
+        "correctIndex": 1,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Practice and knowledge build confidence."
+    },  
+    {
+        "question": "Why is adaptability crucial in today's careers?",
+        "choices": ["Job security", "Rapid change in industries", "Higher salaries"],
+        "correctIndex": 1,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Industries evolve quickly; adaptability ensures relevance."
+    }
   ],
 
   "science": [
@@ -633,6 +753,110 @@
         "difficulty": "hard",
         "points": 30,
         "explanation": "Humans intuitively think linearly, underestimating exponential growth."
-    }  
+    },
+    {
+        "question": "What is the main cause of antibiotic resistance?",
+        "choices": ["Overuse of antibiotics", "Poor hygiene", "Genetic mutations"],
+        "correctIndex": 0,
+        "difficulty": "hard",
+        "points": 30,
+        "explanation": "Overuse accelerates resistant strains."
+    },
+    {
+      "question": "What part of the cell contains genetic material?",
+      "choices": ["Mitochondria", "Nucleus", "Ribosome"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "The nucleus houses DNA."
+    },
+    {
+      "question": "What is the main function of white blood cells?",
+      "choices": ["Carry oxygen", "Fight infections", "Clot blood"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "White blood cells are key to the immune response."
+    },
+    {
+      "question": "What is the largest organ in the human body?",
+      "choices": ["Liver", "Skin", "Lungs"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "The skin is the body's largest organ."
+    },
+    {
+      "question": "What is the main gas responsible for global warming?",
+      "choices": ["Oxygen", "Carbon Dioxide", "Nitrogen"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Carbon dioxide traps heat in the atmosphere."
+    },
+    {
+      "question": "What is the process by which water changes from liquid to gas?",
+      "choices": ["Condensation", "Evaporation", "Precipitation"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "Evaporation is the process of water turning into vapor."
+    },
+    {
+      "question": "What is the main function of the respiratory system?",
+      "choices": ["Digest food", "Exchange gases", "Circulate blood"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "The respiratory system facilitates gas exchange."
+    },
+    {
+      "question": "What is the hardest natural substance on Earth?",
+      "choices": ["Gold", "Diamond", "Iron"],
+      "correctIndex": 1,
+      "difficulty": "medium",
+      "points": 20,
+      "explanation": "Diamonds are the hardest known natural material."
+    },
+    {
+      "question": "What is the main function of the circulatory system?",
+      "choices": ["Digest food", "Exchange gases", "Transport nutrients and oxygen"],
+      "correctIndex": 2,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "The circulatory system transports nutrients and oxygen throughout the body."
+    },
+    {
+      "question": "What is the main function of the nervous system?",
+      "choices": ["Control body functions", "Digest food", "Transport nutrients"],
+      "correctIndex": 0,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "The nervous system controls and coordinates body functions."
+    },
+    {
+      "question": "What is the main function of the digestive system?",
+      "choices": ["Control body functions", "Digest food", "Transport nutrients"],
+      "correctIndex": 1,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "The digestive system breaks down food for nutrient absorption."
+    },
+    {
+      "question": "What is the main function of the skeletal system?",
+      "choices": ["Support and protect the body", "Control body functions", "Digest food"],
+      "correctIndex": 0,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "The skeletal system provides structure and protection."
+    },
+    {
+      "question": "What is the main function of the muscular system?",
+      "choices": ["Support and protect the body", "Control body functions", "Enable movement"],
+      "correctIndex": 2,
+      "difficulty": "easy",
+      "points": 10,
+      "explanation": "The muscular system enables movement of the body."
+    }
   ]
 }
