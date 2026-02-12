@@ -580,7 +580,7 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 15px;
+            gap: 24px;
             margin: 32px 0;
         }
 
@@ -1181,24 +1181,82 @@ const Achievements = {
 // STREAK MANAGEMENT
 // ============================================
 const StreakManager = {
-    update(completed) {
-        const today = new Date().getDay();
-        const adjustedToday = today === 0 ? 6 : today - 1; // FIX ERROR 1
+    // Get the start day of current 7-day cycle
+    getStreakStartDay() {
+        const firstCompletionDate = localStorage.getItem('mindsprintStreakStartDate');
+        if (!firstCompletionDate) return null;
         
-        // Prevent double-marking the same day (FIX ERROR 4)
+        const startDate = new Date(firstCompletionDate);
+        return startDate.getDay();
+    },
+    
+    // Check if we've completed a 7-day cycle
+    hasCompletedFullCycle() {
+        const firstCompletionDate = localStorage.getItem('mindsprintStreakStartDate');
+        if (!firstCompletionDate) return false;
+        
+        const startDate = new Date(firstCompletionDate);
+        const today = new Date();
+        const daysDiff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+        
+        return daysDiff >= 6; // 0-6 = 7 days
+    },
+    
+    // Reset streak to a new 7-day cycle
+    resetStreakCycle() {
+        const today = new Date().toDateString();
+        localStorage.setItem('mindsprintStreakStartDate', today);
+        GameState.streak.days = Array(7).fill(false);
+        GameState.streak.freezes = 2; // Reset freezes for new cycle
+        GameState.streak.current = 0;
+        localStorage.setItem('mindsprintLastCompletion', ''); // Clear last completion
+        GameState.save();
+    },
+    
+    update(completed) {
+        // If first ever completion, start the cycle
+        const firstCompletionDate = localStorage.getItem('mindsprintStreakStartDate');
+        if (!firstCompletionDate) {
+            const today = new Date().toDateString();
+            localStorage.setItem('mindsprintStreakStartDate', today);
+        }
+        
+        // Check if 7-day cycle is complete - if so, start new cycle
+        if (this.hasCompletedFullCycle()) {
+            const streakStartDate = new Date(localStorage.getItem('mindsprintStreakStartDate'));
+            const today = new Date();
+            const daysDiff = Math.floor((today - streakStartDate) / (1000 * 60 * 60 * 24));
+            
+            if (daysDiff >= 7) {
+                // 7+ days have passed - start new cycle
+                this.resetStreakCycle();
+            }
+        }
+        
+        // Get what day of the week the streak started
+        const streakStartDate = new Date(localStorage.getItem('mindsprintStreakStartDate'));
+        const streakStartDay = streakStartDate.getDay();
+        const adjustedStreakStart = streakStartDay === 0 ? 6 : streakStartDay - 1;
+        
+        // Calculate which position in the 7-day array today is
+        const today = new Date();
+        const daysSinceStart = Math.floor((today - streakStartDate) / (1000 * 60 * 60 * 24));
+        const todayPosition = (adjustedStreakStart + daysSinceStart) % 7;
+        
+        // Prevent double-marking the same day
         const lastCompletion = localStorage.getItem('mindsprintLastCompletion');
         const todayString = new Date().toDateString();
         
         if (lastCompletion !== todayString) {
-            GameState.streak.days[adjustedToday] = completed;
+            GameState.streak.days[todayPosition] = completed;
             localStorage.setItem('mindsprintLastCompletion', todayString);
         }
         
-        // Calculate streak (counting backwards from adjusted today)
+        // Calculate streak (count consecutive completed/frozen days from start)
         let current = 0;
         for (let i = 0; i < 7; i++) {
-            const dayIndex = (adjustedToday - i + 7) % 7;
-            if (GameState.streak.days[dayIndex]) {
+            const dayStatus = GameState.streak.days[i];
+            if (dayStatus === true || dayStatus === 'freeze') {
                 current++;
             } else break;
         }
@@ -1210,17 +1268,29 @@ const StreakManager = {
     },
     
     getCurrent() {
-        // FIXED: Add safety check for undefined streak
+        // Safety check
         if (!GameState.streak || !Array.isArray(GameState.streak.days)) {
             return 0;
         }
         
-        const today = new Date().getDay();
-        const adjustedToday = today === 0 ? 6 : today - 1; // Convert to array index
+        // Check if 7-day cycle is complete
+        if (this.hasCompletedFullCycle()) {
+            const streakStartDate = new Date(localStorage.getItem('mindsprintStreakStartDate'));
+            const today = new Date();
+            const daysDiff = Math.floor((today - streakStartDate) / (1000 * 60 * 60 * 24));
+            
+            if (daysDiff >= 7) {
+                // Reset for new cycle
+                this.resetStreakCycle();
+                return 0;
+            }
+        }
+        
+        // Count consecutive days from start
         let streak = 0;
         for (let i = 0; i < 7; i++) {
-            const dayIndex = (adjustedToday - i + 7) % 7;
-            if (GameState.streak.days[dayIndex]) {
+            const dayStatus = GameState.streak.days[i];
+            if (dayStatus === true || dayStatus === 'freeze') {
                 streak++;
             } else break;
         }
@@ -1230,9 +1300,23 @@ const StreakManager = {
     useFreeze() {
         if (GameState.streak.freezes > 0) {
             GameState.streak.freezes--;
-            const today = new Date().getDay();
-            const adjustedToday = today === 0 ? 6 : today - 1;
-            GameState.streak.days[adjustedToday] = 'freeze';
+            
+            // Get streak start info
+            const streakStartDate = new Date(localStorage.getItem('mindsprintStreakStartDate'));
+            const streakStartDay = streakStartDate.getDay();
+            const adjustedStreakStart = streakStartDay === 0 ? 6 : streakStartDay - 1;
+            
+            // Calculate today's position in the 7-day array
+            const today = new Date();
+            const daysSinceStart = Math.floor((today - streakStartDate) / (1000 * 60 * 60 * 24));
+            const todayPosition = (adjustedStreakStart + daysSinceStart) % 7;
+            
+            // Mark as frozen
+            GameState.streak.days[todayPosition] = 'freeze';
+            
+            // Prevent marking as completed today
+            localStorage.setItem('mindsprintLastCompletion', new Date().toDateString());
+            
             GameState.save();
             return true;
         }
